@@ -1,0 +1,46 @@
+.buttonPrimary {
+  background: linear-gradient(180deg, #AD98FF 0%, #612DFE 100%);
+  padding: 0.875em 1.5em;
+  color: white;
+  font-size: 1em;
+  font-weight: 600;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.buttonPrimary:hover {
+  background: #7a2ff4;
+}
+
+.buttonSecondary {
+  background: white;
+  padding: 0.875em 1.5em;
+  color: #7a2ff4;
+  font-size: 1em;
+  font-weight: 600;
+  border-radius: 10px;
+  width: 100%;
+  border: solid 1px #AD98FF;
+}
+
+.buttonSecondary:hover {
+  background: #7a2ff4;
+  color: white;
+}
+
+.buttonDisabled {
+  background-color: gray;
+  cursor: no-drop;
+  padding: 0.875em 1.5em;
+  color: white;
+  font-size: 1em;
+  font-weight: 600;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.textErrorInput {
+  color: red;
+  font-size: 0.875em;
+  margin-top: 0.5em
+}
