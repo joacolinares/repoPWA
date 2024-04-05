@@ -1,7 +1,6 @@
 import React from 'react'
 import SelectMembership from './SelectMembership'
 import plansMembership  from "@/app/[locale]/membership/moskData"
-import async from '../(logged-in)/layout';
 
 async function getDataPlans() {
   const dataPlans = plansMembership

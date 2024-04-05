@@ -1,7 +1,6 @@
 import ButtonPrimary from "@/app/components/generals/ButtonPrimary";
 import { validateDateOfBirth, validateGender } from "@/utils/value_object_register_steps";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 

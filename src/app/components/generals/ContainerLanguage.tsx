@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useLocale } from "next-intl";
 import { setCookieClientSide } from "@/lib/utils";
+import LanguajeSVG from "@/assets/icons/LanguajeIcon";
 
 const ContainerLanguage = () => {
   const submenuRef = useRef<null | HTMLDivElement>(null);
@@ -69,7 +70,7 @@ const ContainerLanguage = () => {
   return (
     <>
       <div className="container-idiomas relative " ref={submenuRef}>
-        <button
+        {/* <button
           className="button-idiomas flex items-center text-[10px] md:text-sm"
           onClick={openMenuLanguage}
         >
@@ -78,11 +79,15 @@ const ContainerLanguage = () => {
               {ImagenesObj[locale as keyof typeof ImagenesObj] || "XX"}
             </p>
           </div>
-        </button>
+        </button> */}
+        <div onClick={openMenuLanguage}>
+          <LanguajeSVG stroke="#fff" width={24} height={24}/>
+        </div>
+        
         <div
           className={`list-idiomas ${isOpenMenuLanguage ? "show" : "hidden"}`}
         >
-          <ul className="absolute space-y-1 top-8 border-solid border-t-2 border-[#3D93DA] w-[85px] bg-white dark:bg-darkslateblack-100  shadow-md text-center rounded-md">
+          <ul className="absolute space-y-1 top-8 border-solid border-t-2 border-[#3D93DA] w-[70px] bg-white dark:bg-darkslateblack-100  shadow-md text-center rounded-md">
             {languageList.map((pais, index) => (
               <li
                 className="container-bandera cursor-pointer text-[10px] md:text-sm text-black dark:text-white hover:text-[#3D93DA] dark:hover:text-[#3D93DA]"

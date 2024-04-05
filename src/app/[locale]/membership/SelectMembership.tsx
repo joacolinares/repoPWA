@@ -8,6 +8,7 @@ import CheckIcon from "@/assets/icons/CheckIcon";
 import { useState } from "react";
 import ModalComponent from "@/app/components/generals/ModalComponent";
 import ButtonPrimary from "@/app/components/generals/ButtonPrimary";
+import { useRouter } from "next/navigation";
 
 interface Props {
   dataPlans: PlansMembership[];
@@ -19,6 +20,7 @@ const SelectMembership = ({ dataPlans }: Props) => {
     null
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useRouter();
 
   const handleSelectPlan = (plan: string): void => {
     if (plan) {
@@ -31,6 +33,12 @@ const SelectMembership = ({ dataPlans }: Props) => {
       setSelectedPlan(null);
     }
   };
+
+  const confirmMembership = () => {
+    if (selectedPlan) {
+      router.push("/dashboard");
+    }
+  }
 
   return (
     <div className="container-Membership">
@@ -112,7 +120,7 @@ const SelectMembership = ({ dataPlans }: Props) => {
       </div>
 
       <div className="px-[24px] mb-6">
-        <ButtonPrimary text={t("Confirm")} />
+        <ButtonPrimary text={t("Confirm")} onClickFn={confirmMembership}/>
       </div>
     </div>
   );

@@ -1,0 +1,19 @@
+.footer {
+  border-top: 2px solid #f2f3f8;
+  background: #fff;
+  padding: 1em 3em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 4em;
+  .link {
+    .container-icon {
+    }
+  }
+
+  .linkAdd {
+    border-radius: 40px;
+    border: 2px solid var(--Light-Secondary, #a9aeb4);
+    padding: .5em;
+  }
+}
