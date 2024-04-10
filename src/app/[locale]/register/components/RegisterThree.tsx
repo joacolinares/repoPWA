@@ -3,6 +3,7 @@ import { validateDateOfBirth, validateGender } from "@/utils/value_object_regist
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import {UserRegisterState, useUserRegisterStore} from "@/store/user-register"
 
 const RegisterThree = () => {
   const t = useTranslations();
@@ -14,6 +15,9 @@ const RegisterThree = () => {
   });
 
   const router = useRouter();
+
+  const { updateUser, ...user } = useUserRegisterStore();
+
   const getValueInputGender = (value: string) => {
     const valueGender = validateGender(value);
 
@@ -64,7 +68,7 @@ const RegisterThree = () => {
       const step1 = JSON.parse(localStorage.getItem("step1")!);
       const step2 = JSON.parse(localStorage.getItem("step2")!);
 
-      const newUser = {
+      const newUser: UserRegisterState = {
         email: step1.email.trim(),
         fullName: step1.fullName.trim(),
         username: step1.username.trim(),
@@ -73,6 +77,9 @@ const RegisterThree = () => {
         gender: gender.trim(),
         dateOfBirth: dateOfBirth.trim()
       }
+      updateUser(newUser)
+      localStorage.removeItem("step1");
+      localStorage.removeItem("step2");
     }
 
     // si estan vacios estos campos significa que no hay errores

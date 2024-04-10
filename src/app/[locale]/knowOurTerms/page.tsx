@@ -9,6 +9,7 @@ import Link from "next/link";
 
 const KnowOurTerms = () => {
   const t = useTranslations();
+  
   return (
     <div className="container-knowOurTerms">
       <div className="header">

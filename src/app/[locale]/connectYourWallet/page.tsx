@@ -1,6 +1,4 @@
-import Image from "next/image";
 import React from "react";
-import LogoPeq from "@/assets/imgs/LogoTipoPeq.png";
 import ConnectWallets from "./ConnectWallets";
 
 const ConnectPage = () => {

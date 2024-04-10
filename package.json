@@ -17,7 +17,8 @@
     "react-modal": "^3.16.1",
     "react-phone-number-input": "^3.3.9",
     "react-spinners": "^0.13.8",
-    "sass": "^1.72.0"
+    "sass": "^1.72.0",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@types/node": "^20",
