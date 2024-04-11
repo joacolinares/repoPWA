@@ -8,7 +8,7 @@ export interface PlansMembership {
 }
 
 interface UserPlanActions {
-	updateUser: (userPlan: PlansMembership) => void
+	updatePlan: (userPlan: PlansMembership) => void
 }
 
 export const useUserPlanStore = create<PlansMembership & UserPlanActions>((set) => ({
@@ -16,7 +16,7 @@ export const useUserPlanStore = create<PlansMembership & UserPlanActions>((set) 
     price: '',
     profitReferralsMembership: '',
     profitReferralsEarnings: '',
-    updateUser: (value) => set(state => ({ 
+    updatePlan: (value) => set(state => ({ 
 		...state,
 		...value
 	 })),

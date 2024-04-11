@@ -25,17 +25,15 @@ const SelectMembership = ({ dataPlans }: Props) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const { updateUser, ...user } = useUserPlanStore();
+  const { updatePlan } = useUserPlanStore();
 
   const handleSelectPlan = (plan: string): void => {
     if (plan) {
-      const planSelect = dataPlans.find((p) => p.plan === plan);
-      if (planSelect) {
-        setSelectedPlan(planSelect);
-        updateUser(planSelect);
+      const findPlan = dataPlans.find((p) => p.plan === plan);
+      if (findPlan) {
+        setSelectedPlan(findPlan);
+        updatePlan(findPlan);
       }
-    } else {
-      setSelectedPlan(null);
     }
   };
 

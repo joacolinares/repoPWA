@@ -1,17 +1,19 @@
 import React from 'react'
-import ButtonsAndGraph from './components/ButtonsAndGraph'
-import Transactions from '../transactions/Transactions'
-import {dataTransactions} from '../transactions/moskData'
-import StackedAreaChart from '@/app/components/generals/charts/ChartLines'
+import { dataTransactions } from '../transactions/moskData';
+import Dashboard from './Dashboard'
 
-const DashboardPage = () => {
+ const getDataTransactions = async () => {
+  const dataTransaction = dataTransactions
+  return dataTransaction
+}
+
+const DashboardPage = async () => {
+  const transactions = await getDataTransactions()
   let isDashboard = true
 
   return (
     <div>
-        <ButtonsAndGraph />
-        <StackedAreaChart />
-        <Transactions isDashboard={isDashboard} data={dataTransactions} />
+        <Dashboard isDashboard={isDashboard} dataTransactions={transactions} />
     </div>
   )
 }

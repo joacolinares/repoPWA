@@ -8,18 +8,18 @@ import { useRouter } from "next/navigation";
 
 const CurrentPlan = () => {
   const t = useTranslations();
-  const { updateUser, ...user } = useUserPlanStore();
+  const { updatePlan, ...plan } = useUserPlanStore();
   const router = useRouter();
 
   return (
-    <>
-      <div className="container-modal p-[24px] rounded-[16px] bg-white shadow-md mb-[24px]">
+    <div className="px-[24px]">
+      <div className="container-modal p-[24px] rounded-[16px] bg-white shadow-md mb-[24px] mt-[32px]">
         <div className="rounded-tl-xl rounded-tr-xl">
           <p className="text-[12px] font-bold text-[#A9AEB4] mb-2">
             {t("CURRENT PLAN")}
           </p>
           <p className="font-bold text-[24px] text-[#7A2FF4] mb-2">
-            {user?.plan || "Basic"}
+            {plan?.plan || "Basic"}
           </p>
         </div>
         <div className="">
@@ -37,7 +37,7 @@ const CurrentPlan = () => {
             </p>
             <div className="container-check bg-[#7A2FF4] rounded-[10px] w-[48px] h-[34px] flex justify-center items-center">
               <span className="text-[14px] text-[#ffffff]">
-                {user?.profitReferralsMembership}
+                {plan?.profitReferralsMembership}
               </span>
             </div>
           </div>
@@ -47,7 +47,7 @@ const CurrentPlan = () => {
             </p>
             <div className="container-check bg-[#7A2FF4] rounded-[10px] w-[48px] h-[34px] flex justify-center items-center">
               <span className="text-[14px] text-[#ffffff]">
-                {user?.profitReferralsEarnings}
+                {plan?.profitReferralsEarnings}
               </span>
             </div>
           </div>
@@ -57,7 +57,7 @@ const CurrentPlan = () => {
         text={t("Upgrade your Membership")}
         onClickFn={() => router.push("/members/selectMember")}
       />
-    </>
+    </div>
   );
 };
 

@@ -8,6 +8,7 @@ async function getDataPlans() {
 }
 
 const MembershipPage = async () => {
+  
   const plans = await getDataPlans()
   
   return (

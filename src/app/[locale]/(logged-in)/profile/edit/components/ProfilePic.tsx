@@ -45,7 +45,7 @@ export default function ProfilePic({ src }: ProfilePicProps) {
       />
       <div className="camara-container bg-[#7A2FF4] p-2 rounded-[20px] w-[32px] absolute right-0 bottom-4">
         <Image
-          className="camara"
+          className="camara cursor-pointer"
           src={CamaraFoto}
           alt=""
           onClick={handleImageClick}

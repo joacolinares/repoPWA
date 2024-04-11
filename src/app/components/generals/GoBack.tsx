@@ -9,7 +9,7 @@ const GoBack = ({ text }: { text: string }) => {
   const router = useRouter();
 
   return (
-    <div onClick={() => router.back()} className="flex items-center">
+    <div onClick={() => router.back()} className="flex items-center cursor-pointer">
       <GoBackSVG width={24} height={24} />
       <h2 className="text-white text-[18px] font-bold ml-2">{text}</h2>
     </div>

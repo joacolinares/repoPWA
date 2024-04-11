@@ -14,10 +14,13 @@ import {
   validatePhoneNumber,
   validateUserName,
 } from "@/utils/value_object_register_steps";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import HeaderPages from "@/app/components/generals/HeaderPages";
 
 const EditProfile = () => {
   const t = useTranslations();
+  const pathname = usePathname();
+
   const [email, setEmail] = useState<string>("");
   const [fullName, setFullName] = useState<string>("");
   const [username, setUsername] = useState<string>("");
@@ -37,18 +40,17 @@ const EditProfile = () => {
 
   //este useEffect solo lo utilizare hasta hacer el fetch de datos real
   const getUserRegisterStore = useCallback(useUserRegisterStore, []);
-  const userStore = getUserRegisterStore()
-  const router = useRouter()
-  
-  useEffect(() => {
-    setEmail(userStore.email || "")
-    setFullName(userStore.fullName || "")
-    setUsername(userStore.username || "")
-    setPhone(userStore.phoneNumber || "")
-    setCountry(userStore.country || "")
-    setGender(userStore.gender || "")
-    setDateOfBirth(userStore.dateOfBirth || "")
+  const userStore = getUserRegisterStore();
+  const router = useRouter();
 
+  useEffect(() => {
+    setEmail(userStore.email || "");
+    setFullName(userStore.fullName || "");
+    setUsername(userStore.username || "");
+    setPhone(userStore.phoneNumber || "");
+    setCountry(userStore.country || "");
+    setGender(userStore.gender || "");
+    setDateOfBirth(userStore.dateOfBirth || "");
   }, [getUserRegisterStore]);
 
   function getValueInputEmail(value: string) {
@@ -181,134 +183,151 @@ const EditProfile = () => {
   const { updateUser, ...user } = useUserRegisterStore();
 
   const handleSubmit = () => {
-    if(
-        fieldError.country !== "" || 
-        fieldError.phoneNumber !== "" || 
-        fieldError.email !== "" || 
-        fieldError.fullName !== "" || 
-        fieldError.username !== "" || 
-        fieldError.gender !== "" || 
-        fieldError.dateOfBirth !== ""
-    ) return 
+    if (
+      fieldError.country !== "" ||
+      fieldError.phoneNumber !== "" ||
+      fieldError.email !== "" ||
+      fieldError.fullName !== "" ||
+      fieldError.username !== "" ||
+      fieldError.gender !== "" ||
+      fieldError.dateOfBirth !== ""
+    )
+      return;
 
     const newObject: UserRegisterState = {
-    email,
-    fullName,
-    username,
-    phoneNumber: phone || null,
-    country,
-    gender,
-    dateOfBirth
-    }
+      email,
+      fullName,
+      username,
+      phoneNumber: phone || null,
+      country,
+      gender,
+      dateOfBirth,
+    };
 
-    updateUser(newObject)
-    router.push("/profile")
-  }
+    updateUser(newObject);
+    router.push("/profile");
+  };
+
+  // funcion para recortar el patname de la url
+  const headerText = pathname.includes("/")
+    ? pathname
+        .split("/")
+        .filter((path) => path.length > 0 && path !== "/")[0]
+        .charAt(0)
+        .toUpperCase() +
+      pathname
+        .split("/")
+        .filter((path) => path.length > 0 && path !== "/")[0]
+        .slice(1)
+    : pathname.charAt(0).toUpperCase() + pathname.slice(1);
 
   return (
-    <div className="edit-profile">
-      <h1 className="title-edit">{t("Edit your profile")}</h1>
-      <form className="container-form">
-        <div className="container-input-label">
-          <label htmlFor="">{t("Email Address")}</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder={t("Email Address")}
-            required
-            value={email}
-            onChange={(e) => getValueInputEmail(e.target.value)}
-          />
-          <p className="textErrorInput">{fieldError.email}</p>
+    <>
+      <HeaderPages text={headerText} />
+      <div className="edit-profile bg-gradient-to-t from-[#0E0E33] to-[#39307B]">
+        <h1 className="title-edit">{t("Edit your profile")}</h1>
+        <form className="container-form">
+          <div className="container-input-label">
+            <label htmlFor="">{t("Email Address")}</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder={t("Email Address")}
+              required
+              value={email}
+              onChange={(e) => getValueInputEmail(e.target.value)}
+            />
+            <p className="textErrorInput">{fieldError.email}</p>
+          </div>
+          <div className="container-input-label">
+            <label htmlFor="">{t("Full Name")}</label>
+            <input
+              type="text"
+              name="fullName"
+              id="fullName"
+              placeholder={t("Full Name")}
+              required
+              value={fullName}
+              onChange={(e) => getValueInputFullName(e.target.value)}
+            />
+            <p className="textErrorInput">{fieldError.fullName}</p>
+          </div>
+          <div className="container-input-label">
+            <label htmlFor="">{t("Username")}</label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder={t("Username")}
+              required
+              value={username}
+              onChange={(e) => getValueInputUsername(e.target.value)}
+            />
+            <p className="textErrorInput">{fieldError.username}</p>
+          </div>
+          <div className="container-input-label">
+            <label htmlFor="">{t("Phone Number")}</label>
+            <PhoneInput
+              defaultCountry="MX"
+              placeholder="Ej: 5585264448"
+              value={phone}
+              onChange={(value) =>
+                value ? getValueInputPhoneNumber(value) : null
+              }
+            />
+            <p className="textErrorInput">{fieldError.phoneNumber}</p>
+          </div>
+          <div className="container-input-label">
+            <label htmlFor="">{t("Country")}</label>
+            <input
+              type="text"
+              name="country"
+              id="country"
+              placeholder={t("Country")}
+              required
+              value={country}
+              onChange={(e) => getValueInputCountry(e.target.value)}
+            />
+            <p className="textErrorInput">{fieldError.country}</p>
+          </div>
+          <div className="container-input-label">
+            <label htmlFor="">{t("Gender")}</label>
+            <select
+              aria-label="Default select example"
+              className="selectGender form-control"
+              id="inputGender"
+              value={gender}
+              onChange={(e) => getValueInputGender(e.target.value)}
+            >
+              <option value={t("Gender")}>{t("Gender")}</option>
+              <option value={t("Man")}>{t("Man")}</option>
+              <option value={t("Women")}>{t("Women")}</option>
+              <option value={t("I prefer not to say")}>
+                {t("I prefer not to say")}
+              </option>
+            </select>
+            <p className="textErrorInput">{fieldError.gender}</p>
+          </div>
+          <div className="container-input-label">
+            <label htmlFor="">{t("Date of Birth")}</label>
+            <input
+              type="date"
+              name="username"
+              id="username"
+              placeholder={t("Select your Date of Birth")}
+              required
+              value={dateOfBirth}
+              onChange={(e) => getValueInputDateOfBirth(e.target.value)}
+            />
+            <p className="textErrorInput">{fieldError.dateOfBirth}</p>
+          </div>
+        </form>
+        <div>
+          <ButtonPrimary text={t("Save changes")} onClickFn={handleSubmit} />
         </div>
-        <div className="container-input-label">
-          <label htmlFor="">{t("Full Name")}</label>
-          <input
-            type="text"
-            name="fullName"
-            id="fullName"
-            placeholder={t("Full Name")}
-            required
-            value={fullName}
-            onChange={(e) => getValueInputFullName(e.target.value)}
-          />
-          <p className="textErrorInput">{fieldError.fullName}</p>
-        </div>
-        <div className="container-input-label">
-          <label htmlFor="">{t("Username")}</label>
-          <input
-            type="text"
-            name="username"
-            id="username"
-            placeholder={t("Username")}
-            required
-            value={username}
-            onChange={(e) => getValueInputUsername(e.target.value)}
-          />
-          <p className="textErrorInput">{fieldError.username}</p>
-        </div>
-        <div className="container-input-label">
-          <label htmlFor="">{t("Phone Number")}</label>
-          <PhoneInput
-            defaultCountry="MX"
-            placeholder="Ej: 5585264448"
-            value={phone}
-            onChange={(value) =>
-              value ? getValueInputPhoneNumber(value) : null
-            }
-          />
-          <p className="textErrorInput">{fieldError.phoneNumber}</p>
-        </div>
-        <div className="container-input-label">
-          <label htmlFor="">{t("Country")}</label>
-          <input
-            type="text"
-            name="country"
-            id="country"
-            placeholder={t("Country")}
-            required
-            value={country}
-            onChange={(e) => getValueInputCountry(e.target.value)}
-          />
-          <p className="textErrorInput">{fieldError.country}</p>
-        </div>
-        <div className="container-input-label">
-          <label htmlFor="">{t("Gender")}</label>
-          <select
-            aria-label="Default select example"
-            className="selectGender form-control"
-            id="inputGender"
-            value={gender}
-            onChange={(e) => getValueInputGender(e.target.value)}
-          >
-            <option value={t("Gender")}>{t("Gender")}</option>
-            <option value={t("Man")}>{t("Man")}</option>
-            <option value={t("Women")}>{t("Women")}</option>
-            <option value={t("I prefer not to say")}>
-              {t("I prefer not to say")}
-            </option>
-          </select>
-          <p className="textErrorInput">{fieldError.gender}</p>
-        </div>
-        <div className="container-input-label">
-          <label htmlFor="">{t("Date of Birth")}</label>
-          <input
-            type="date"
-            name="username"
-            id="username"
-            placeholder={t("Select your Date of Birth")}
-            required
-            value={dateOfBirth}
-            onChange={(e) => getValueInputDateOfBirth(e.target.value)}
-          />
-          <p className="textErrorInput">{fieldError.dateOfBirth}</p>
-        </div>
-      </form>
-      <div>
-        <ButtonPrimary text={t("Save changes")}  onClickFn={handleSubmit} />
       </div>
-    </div>
+    </>
   );
 };
 
