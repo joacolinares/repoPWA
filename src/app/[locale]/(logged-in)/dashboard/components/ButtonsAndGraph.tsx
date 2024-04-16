@@ -16,7 +16,7 @@ const ButtonsAndGraph = () => {
           <ButtonPrimary text={t("Stake")} onClickFn={() => router.push("/stake")}/>
         </div>
         <div className="w-[48%]">
-          <ButtonSecondary text={t("Un-Stake")} onClickFn={() => router.push("/unstake")}/>
+          <ButtonSecondary text={t("Un-Stake")} onClickFn={() => router.push("/operations")}/>
         </div>
     </div>
     </div>

@@ -1,12 +1,17 @@
 import React from 'react'
+import Notifications from './Notifications'
+import {messagesNotifications} from "./components/moskData"
 
-const NotificationsPage = () => {
+const getMessages = async () => {
+  const messagesNotification = messagesNotifications
+  return messagesNotification
+}
+
+const NotificationsPage = async () => {
+  const messages = await getMessages()
   return (
     <div className='page-notificacions'>
-        <h1>NotificationsPage</h1>
-        <h1>NotificationsPage</h1>
-        <h1>NotificationsPage</h1>
-        <h1>NotificationsPage</h1>
+      <Notifications messages={messages}/>
     </div>
   )
 }

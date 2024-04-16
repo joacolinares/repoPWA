@@ -8,7 +8,7 @@ interface Props {
 export default function LayoutClient({ children }: Props) {
 
   return (
-    <div className="flex flex-col justify-between min-h-screen overflow-hidden">
+    <div className="flex flex-col justify-between  overflow-hidden">
       <div>
         {children}
       </div>

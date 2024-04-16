@@ -8,12 +8,18 @@ import MembersHeader from "@/app/[locale]/(logged-in)/members/components/Members
 import RewardHeader from "@/app/[locale]/(logged-in)/rewardPool/components/RewardHeader";
 import ButtonPrimary from "./ButtonPrimary";
 import { useTranslations } from "next-intl";
+import HeaderOperations from "@/app/[locale]/(logged-in)/operations/components/HeaderOperations";
+import HeaderLiquidity from "@/app/[locale]/(logged-in)/liquidityPool/components/HeaderLiquidity";
 
 type HeaderPagesProps = {
   text: string;
+  isUnStake?: boolean;
+  setIsUnStake?: (value: boolean) => void | undefined;
+  isAddLiquidity?: boolean;
+  setIsAddLiquidity?: (value: boolean) => void | undefined;
 };
 
-const Header = ({ text }: HeaderPagesProps) => {
+const Header = ({ text, isUnStake, setIsUnStake, isAddLiquidity, setIsAddLiquidity }: HeaderPagesProps) => {
   const pathname = usePathname();
   const t = useTranslations();
   const router = useRouter();
@@ -25,6 +31,8 @@ const Header = ({ text }: HeaderPagesProps) => {
       {pathname === "/profile" ? <ProfileHeader /> : null}
       {pathname === "/members" ? <MembersHeader /> : null}
       {pathname === "/rewardPool" ? <RewardHeader /> : null}
+      {pathname === "/operations" ? <HeaderOperations isUnStake={isUnStake} setIsUnStake={setIsUnStake}/> : null}
+      {pathname === "/liquidityPool" ? <HeaderLiquidity isAddLiquidity={isAddLiquidity} setIsAddLiquidity={setIsAddLiquidity}/> : null}
       {pathname === "/governance" ? <ButtonPrimary text={t("Create Proposal")} onClickFn={() => router.push("/governance/create")}/> : null}
     </div>
   );

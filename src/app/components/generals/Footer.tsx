@@ -31,12 +31,12 @@ const Footer = () => {
     {
       title: "Add Liquidation",
       icon: <AddSVG fill='#A9AEB4' stroke='#A9AEB4'/>,
-      link: "/addLiquidation"
+      link: "/addLiquidity"
     },
     {
       title: "Liquidation",
       icon: <LiquidationSVG fill='#A9AEB4' />,
-      link: "/liquidation"
+      link: "/liquidityPool"
     },
     {
       title: "Profile",
