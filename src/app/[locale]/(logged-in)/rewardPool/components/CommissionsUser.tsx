@@ -28,33 +28,46 @@ const CommissionsUser = ({ commissionInfo }: Props) => {
   return (
     <div className="text-white">
       <h1 className="text-[20px] font-bold mb-[16px]">{t("Commissions")}</h1>
-      <div className="container-info px-4 rounded-[20px] bg-[#ffffff14]">
-        {elemetsVisibleByPage.map((item) => (
-          <div
-            className="container-info-user flex items-center justify-between py-[16px] border-b border-solid border-[#ffffff14]"
-            key={item.id}
-          >
-            <div className="container-left">
-              <p className="text-[16px] font-bold mb-1">$ {item.amount}</p>
-              <p className="text-[12px] text-[#A9AEB4]">{item.fecha}</p>
+
+      <div>
+        {elemetsVisibleByPage.length > 0 ? (
+          <>
+            <div className="container-info px-4 rounded-[20px] bg-[#ffffff14]">
+              {elemetsVisibleByPage.map((item) => (
+                <div
+                  className="container-info-user flex items-center justify-between py-[16px] border-b border-solid border-[#ffffff14]"
+                  key={item.id}
+                >
+                  <div className="container-left">
+                    <p className="text-[16px] font-bold mb-1">
+                      $ {item.amount}
+                    </p>
+                    <p className="text-[12px] text-[#A9AEB4]">{item.fecha}</p>
+                  </div>
+                  <div className="container-right">
+                    <p className="text-[16px] font-bold mb-1">{item.id}</p>
+                    <p className="text-[12px] text-[#A9AEB4]">
+                      {t("Level")} {item.level}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
-            <div className="container-right">
-              <p className="text-[16px] font-bold mb-1">{item.id}</p>
-              <p className="text-[12px] text-[#A9AEB4]">
-                {t("Level")} {item.level}
-              </p>
+            <div className="flex justify-center mt-5 ">
+              <Pagination
+                currentPage={currentPage}
+                goToNextPage={goToNextPage}
+                goToPage={goToPage}
+                goToPreviousPage={goToPreviousPage}
+                totalPages={totalPages}
+              />
             </div>
-          </div>
-        ))}
-      </div>
-      <div className="flex justify-center mt-5 ">
-        <Pagination
-          currentPage={currentPage}
-          goToNextPage={goToNextPage}
-          goToPage={goToPage}
-          goToPreviousPage={goToPreviousPage}
-          totalPages={totalPages}
-        />
+          </>
+        ) : (
+          <p className="text-white font-bold text-[18px] text-center">
+            {t("There is no commission data")}
+          </p>
+        )}
       </div>
     </div>
   );

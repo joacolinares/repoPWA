@@ -3,9 +3,9 @@ import Members from './Members'
 
 const MembersPage = async () => {
   return (
-    <>
+    <div>
      <Members />
-    </>
+    </div>
   )
 }
 

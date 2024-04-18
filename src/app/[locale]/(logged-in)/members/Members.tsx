@@ -9,7 +9,7 @@ import Header from "@/app/components/generals/Header";
 const Members = () => {
   const pathname = usePathname();
   return (
-    <>
+    <div>
       {pathname === "/members/selectMember" ? (
         <SelectMember />
       ) : (
@@ -21,7 +21,7 @@ const Members = () => {
           <MyMembersTeam />
         </div>
       )}
-    </>
+    </div>
   );
 };
 

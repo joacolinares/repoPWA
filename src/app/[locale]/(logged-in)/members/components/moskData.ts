@@ -3,7 +3,7 @@ export interface DataMembers {
     numberOfMembers: number
     totalStaking: string
     residual: string,
-    membersInfo?: { wallet: string, name: string, sponsor: string, totalStaking: string }[]
+    membersInfo: { wallet: string, name: string, sponsor: string, totalStaking: string, walletInfo: { status: string, period: string, investment: number | null, startDate: string }[] }[]
 }
 
 export const dataLevelsMock: DataMembers[] = [
@@ -17,19 +17,199 @@ export const dataLevelsMock: DataMembers[] = [
                 wallet: "1",
                 name: "Analilia",
                 sponsor: "Admin",
-                totalStaking: "2,000.00"
+                totalStaking: "2,000.00",
+                walletInfo: [
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                ]
             },
             {
                 wallet: "2",
                 name: "Cristian",
                 sponsor: "Admin",
-                totalStaking: "2,000.00"
+                totalStaking: "2,000.00",
+                walletInfo: [
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                ]
             },
             {
                 wallet: "3",
                 name: "Cristina",
                 sponsor: "Admin",
-                totalStaking: "2,000.00"
+                totalStaking: "2,000.00",
+                walletInfo: [
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                ]
+            },
+            {
+                wallet: "4",
+                name: "Analilia",
+                sponsor: "Admin",
+                totalStaking: "2,000.00",
+                walletInfo: [
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                ]
+            },
+            {
+                wallet: "5",
+                name: "Cristian",
+                sponsor: "Admin",
+                totalStaking: "2,000.00",
+                walletInfo: [
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                ]
+            },
+            {
+                wallet: "6",
+                name: "Cristina",
+                sponsor: "Admin",
+                totalStaking: "2,000.00",
+                walletInfo: [
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                ]
+            },
+            {
+                wallet: "7",
+                name: "Analilia",
+                sponsor: "Admin",
+                totalStaking: "2,000.00",
+                walletInfo: [
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                ]
+            },
+            {
+                wallet: "8",
+                name: "Cristian",
+                sponsor: "Admin",
+                totalStaking: "2,000.00",
+                walletInfo: [
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                ]
+            },
+            {
+                wallet: "9",
+                name: "Cristina",
+                sponsor: "Admin",
+                totalStaking: "2,000.00",
+                walletInfo: [
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                ]
             }
         ]
     },
@@ -43,19 +223,73 @@ export const dataLevelsMock: DataMembers[] = [
                 wallet: "1",
                 name: "Analilia2",
                 sponsor: "Admin",
-                totalStaking: "2,000.00"
+                totalStaking: "2,000.00",
+                walletInfo: [
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                ]
             },
             {
                 wallet: "2",
                 name: "Cristian2",
                 sponsor: "Admin",
-                totalStaking: "2,000.00"
+                totalStaking: "2,000.00",
+                walletInfo: [
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                ]
             },
             {
                 wallet: "3",
                 name: "Cristina2",
                 sponsor: "Admin",
-                totalStaking: "2,000.00"
+                totalStaking: "2,000.00",
+                walletInfo: [
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                ]
             }
         ]
     },
@@ -69,19 +303,73 @@ export const dataLevelsMock: DataMembers[] = [
                 wallet: "1",
                 name: "Analili3",
                 sponsor: "Admin",
-                totalStaking: "2,000.00"
+                totalStaking: "2,000.00",
+                walletInfo: [
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                ]
             },
             {
                 wallet: "2",
                 name: "Cristian3",
                 sponsor: "Admin",
-                totalStaking: "2,000.00"
+                totalStaking: "2,000.00",
+                walletInfo: [
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                ]
             },
             {
                 wallet: "3",
                 name: "Cristina3",
                 sponsor: "Admin",
-                totalStaking: "2,000.00"
+                totalStaking: "2,000.00",
+                walletInfo: [
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                ]
             }
         ]
     },
@@ -95,19 +383,61 @@ export const dataLevelsMock: DataMembers[] = [
                 wallet: "1",
                 name: "Analilia4",
                 sponsor: "Admin",
-                totalStaking: "2,000.00"
+                totalStaking: "2,000.00",
+                walletInfo: [
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                ]
             },
             {
                 wallet: "2",
                 name: "Cristian4",
                 sponsor: "Admin",
-                totalStaking: "2,000.00"
+                totalStaking: "2,000.00",
+                walletInfo: [
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                ]
             },
             {
                 wallet: "3",
                 name: "Cristina4",
                 sponsor: "Admin",
-                totalStaking: "2,000.00"
+                totalStaking: "2,000.00",
+                walletInfo: [
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                    {
+                        status: 'Active',
+                        period: '6 months',
+                        investment: 10.000,
+                        startDate: '01/01/24',
+                    },
+                ]
             }
         ]
     },

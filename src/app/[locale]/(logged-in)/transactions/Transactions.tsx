@@ -51,7 +51,7 @@ const Transactions = ({ data, isDashboard }: Props) => {
         className={`${
           isDashboard
             ? "px-[24px] pt-[32px] pb-[96px] rounded-t-[40px] bg-gradient-to-t from-[#0E0E33] to-[#39307B]"
-            : "px-[24px]"
+            : "px-[24px] min-h-[calc(100vh-200px)]"
         }`}
       >
         {isDashboard ? (
@@ -72,34 +72,40 @@ const Transactions = ({ data, isDashboard }: Props) => {
             </p>
           </div>
         ) : null}
-        <div className="component-transactions">
-          {getElementsToShow().map((transaction) => (
-            <div key={transaction.id} className="container-map">
-              <div className="container-type">
-                <p>{transaction.type}</p>
-                <span>{transaction.date} </span>
-                <span>{transaction.time}</span>
+        {elemetsVisibleByPage.length > 0 ? (
+          <div className="component-transactions">
+            {getElementsToShow().map((transaction) => (
+              <div key={transaction.id} className="container-map">
+                <div className="container-type">
+                  <p>{transaction.type}</p>
+                  <span>{transaction.date} </span>
+                  <span>{transaction.time}</span>
+                </div>
+                <div className="container-amount">
+                  <p>$ {transaction.amount}</p>
+                  <span>
+                    +${transaction.amountFee} {t("Fee")}
+                  </span>
+                </div>
               </div>
-              <div className="container-amount">
-                <p>$ {transaction.amount}</p>
-                <span>
-                  +${transaction.amountFee} {t("Fee")}
-                </span>
+            ))}
+            {!isDashboard ? (
+              <div className="flex justify-center mt-5 ">
+                <Pagination
+                  currentPage={currentPage}
+                  goToNextPage={goToNextPage}
+                  goToPage={goToPage}
+                  goToPreviousPage={goToPreviousPage}
+                  totalPages={totalPages}
+                />
               </div>
-            </div>
-          ))}
-          {!isDashboard ? (
-            <div className="flex justify-center mt-5 ">
-              <Pagination
-                currentPage={currentPage}
-                goToNextPage={goToNextPage}
-                goToPage={goToPage}
-                goToPreviousPage={goToPreviousPage}
-                totalPages={totalPages}
-              />
-            </div>
-          ) : null}
-        </div>
+            ) : null}
+          </div>
+        ) : (
+          <h1 className="text-white font-bold text-[18px] text-center">
+            {t("No transaction data")}
+          </h1>
+        )}
       </div>
     </>
   );

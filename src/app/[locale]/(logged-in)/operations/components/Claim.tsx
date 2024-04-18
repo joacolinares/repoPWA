@@ -46,20 +46,30 @@ const Claim = ({ dataClaim }: Props) => {
               <input
                 type="number"
                 className="rounded-[10px] p-4 bg-[#F2F3F8] w-full"
-                value={0.00}
-                onChange={(e) => {console.log(e.target.value)}}
+                value={0.0}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                }}
               />
               <button className="absolute right-4 top-1/2 -translate-y-1/2 text-[14px] font-bold text-[#7A2FF4]">
                 {t("MAX")}
               </button>
             </div>
             <div className="mt-4 mb-2 flex items-center justify-between">
-              <span className="text-[14px] text-[#A9AEB4]">{t("Performance Fee")}</span>
-              <span className="text-[14px] text-[#A9AEB4] font-bold">$ 0.00</span>
+              <span className="text-[14px] text-[#A9AEB4]">
+                {t("Performance Fee")}
+              </span>
+              <span className="text-[14px] text-[#A9AEB4] font-bold">
+                $ 0.00
+              </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-[14px] text-[#A9AEB4]">{t("Profit to Send")}</span>
-              <span className="text-[14px] text-[#A9AEB4] font-bold">$ 0.00</span>
+              <span className="text-[14px] text-[#A9AEB4]">
+                {t("Profit to Send")}
+              </span>
+              <span className="text-[14px] text-[#A9AEB4] font-bold">
+                $ 0.00
+              </span>
             </div>
           </div>
 
@@ -77,41 +87,49 @@ const Claim = ({ dataClaim }: Props) => {
             {t("Claim History")}
           </h1>
         </div>
-        <div className="component-claimHistory bg-[#ffffff1a] rounded-[16px] p-4">
-          {elemetsVisibleByPage.map((claim) => (
-            <div
-              key={claim.id}
-              className="container-map flex justify-between items-center py-4 border-b border-solid border-[#ffffff1a] last:border-b-0"
-            >
-              <div className="container-claim-amount">
-                <p className="text-[#20DABB] text-[16px] font-bold">
-                  {claim.amountClaim}
-                </p>
-                <span className="text-[12px] text-[#A9AEB4]">
-                  {claim.date}{" "}
-                </span>
-                <span className="text-[12px] text-[#A9AEB4]">{claim.time}</span>
-              </div>
-              <div className="container-amount">
-                <p className="text-white text-[14px] font-bold">
-                  $ {claim.amountProfit} {t("Profit")}
-                </p>
-                <span className="text-[14px] text-[#A9AEB4] font-bold">
-                  +${claim.amountFee} {t("Fee")}
-                </span>
-              </div>
+        {elemetsVisibleByPage.length > 0 ? (
+          <>
+            <div className="component-claimHistory bg-[#ffffff1a] rounded-[16px] p-4">
+              {elemetsVisibleByPage.map((claim) => (
+                <div
+                  key={claim.id}
+                  className="container-map flex justify-between items-center py-4 border-b border-solid border-[#ffffff1a] last:border-b-0"
+                >
+                  <div className="container-claim-amount">
+                    <p className="text-[#20DABB] text-[16px] font-bold">
+                      {claim.amountClaim}
+                    </p>
+                    <span className="text-[12px] text-[#A9AEB4]">
+                      {claim.date}{" "}
+                    </span>
+                    <span className="text-[12px] text-[#A9AEB4]">
+                      {claim.time}
+                    </span>
+                  </div>
+                  <div className="container-amount">
+                    <p className="text-white text-[14px] font-bold">
+                      $ {claim.amountProfit} {t("Profit")}
+                    </p>
+                    <span className="text-[14px] text-[#A9AEB4] font-bold">
+                      +${claim.amountFee} {t("Fee")}
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <div className="flex justify-center mt-5 ">
-          <Pagination
-            currentPage={currentPage}
-            goToNextPage={goToNextPage}
-            goToPage={goToPage}
-            goToPreviousPage={goToPreviousPage}
-            totalPages={totalPages}
-          />
-        </div>
+            <div className="flex justify-center mt-5 ">
+              <Pagination
+                currentPage={currentPage}
+                goToNextPage={goToNextPage}
+                goToPage={goToPage}
+                goToPreviousPage={goToPreviousPage}
+                totalPages={totalPages}
+              />
+            </div>
+          </>
+        ) : (
+          <h1 className="text-white font-bold text-[18px] text-center">{t("No claims history")}</h1>
+        )}
       </div>
     </div>
   );

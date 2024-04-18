@@ -68,35 +68,43 @@ const UnStake = ({ dataUnStake }: Props) => {
             {t("Un-Stake History")}
           </h1>
         </div>
-        <div className="component-unStakeHistory bg-[#ffffff1a] rounded-[16px] p-4">
-          {elemetsVisibleByPage.map((unStake) => (
-            <div
-              key={unStake.id}
-              className="container-map flex justify-between items-center py-4 border-b border-solid border-[#ffffff1a] last:border-b-0"
-            >
-              <p className="text-[#FF4C5A] text-[16px] font-bold">
-                {unStake.amountUnStake}
-              </p>
-              <div>
-                <span className="text-[12px] text-[#A9AEB4]">
-                  {unStake.date}{" "}
-                </span>
-                <span className="text-[12px] text-[#A9AEB4]">
-                  {unStake.time}
-                </span>
-              </div>
+        {elemetsVisibleByPage.length > 0 ? (
+          <>
+            <div className="component-unStakeHistory bg-[#ffffff1a] rounded-[16px] p-4">
+              {elemetsVisibleByPage.map((unStake) => (
+                <div
+                  key={unStake.id}
+                  className="container-map flex justify-between items-center py-4 border-b border-solid border-[#ffffff1a] last:border-b-0"
+                >
+                  <p className="text-[#FF4C5A] text-[16px] font-bold">
+                    {unStake.amountUnStake}
+                  </p>
+                  <div>
+                    <span className="text-[12px] text-[#A9AEB4]">
+                      {unStake.date}{" "}
+                    </span>
+                    <span className="text-[12px] text-[#A9AEB4]">
+                      {unStake.time}
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <div className="flex justify-center mt-5 ">
-          <Pagination
-            currentPage={currentPage}
-            goToNextPage={goToNextPage}
-            goToPage={goToPage}
-            goToPreviousPage={goToPreviousPage}
-            totalPages={totalPages}
-          />
-        </div>
+            <div className="flex justify-center mt-5 ">
+              <Pagination
+                currentPage={currentPage}
+                goToNextPage={goToNextPage}
+                goToPage={goToPage}
+                goToPreviousPage={goToPreviousPage}
+                totalPages={totalPages}
+              />
+            </div>
+          </>
+        ) : (
+          <h1 className="text-white font-bold text-[18px] text-center">
+            {t("No un-stake history")}
+          </h1>
+        )}
       </div>
     </div>
   );

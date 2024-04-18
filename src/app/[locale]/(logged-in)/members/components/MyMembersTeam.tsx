@@ -17,7 +17,7 @@ const MyMembersTeam = () => {
   const t = useTranslations();
   const router = useRouter();
   const [dataLevels, setDataLevels] = useState<DataMembers[]>([]);
-  const { selectPlan } = useUserLevelStore();
+  const { selectPlan, ...lvlStore  } = useUserLevelStore();
 
 	useEffect(() => {
 		async function getDataServer() {
@@ -57,11 +57,11 @@ const MyMembersTeam = () => {
             </div>
             <div className="container-total-residual">
               <div className="container-total mb-4">
-                <p className="text-[12px] mb-2">{t("TOTAL STAKING")}</p>
+                <p className="text-[12px] mb-2">{t("TOTAL MEMBERSHIP")}</p>
                 <p className="text-[16px] font-bold">$ {item.totalStaking}</p>
               </div>
               <div className="container-residual">
-                <p className="text-[12px] mb-2">{t("RESIDUAL")} (10%)</p>
+                <p className="text-[12px] mb-2">{t("REWARDS")} (10%)</p>
                 <p className="text-[16px] font-bold">$ {item.totalStaking}</p>
               </div>
             </div>

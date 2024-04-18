@@ -135,5 +135,20 @@
     "Available to Stake": "Available to Stake",
     "Here you can make new stakes": "Here you can make new stakes, keep in mind that you must approve the contract first. Don't worry, this is only one time.",
     "MIN STAKE": "MIN. STAKE",
-    "Does not have notification messages": "Does not have notification messages"
+    "Does not have notification messages": "Does not have notification messages",
+    "Wallet": "Wallet",
+    "SPONSOR": "SPONSOR",
+    "INVESTMENT": "INVESTMENT",
+    "START DATE": "START DATE",
+    "There are no transactions": "There are no transactions",
+    "There is no referral data": "There is no referral data",
+    "There is no commission data": "There is no commission data",
+    "Has no members at this level": "Has no members at this level",
+    "No claims history": "No claims history",
+    "No un-stake history": "No un-stake history",
+    "No transaction data": "No transaction data",
+    "Total Rewards": "Total Rewards",
+    "TOTAL MEMBERSHIP": "TOTAL MEMBERSHIP",
+    "REWARDS": "REWARDS",
+    "My Share": "My Share"
 }
