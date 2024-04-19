@@ -1,13 +1,13 @@
 "use client"
+import React from 'react'
 import Header from '@/app/components/generals/Header';
-import { usePathname } from 'next/navigation';
-import React, { useState } from 'react'
+import { usePathname, useSearchParams } from 'next/navigation';
 import AddLiquidity from './components/AddLiquidity';
 import MyLiquidity from './components/MyLiquidity';
 
 const Liquidity = () => {
     const pathname = usePathname();
-    const [isAddLiquidity, setIsAddLiquidity] = useState(false)
+    const search = useSearchParams().get("type");
 
     // Esta funcion sirve para colocar la primera letra en mayuscula y separar cuando la url tiene dos nombres
       function capitalizeFirstLetter() {
@@ -35,10 +35,10 @@ const Liquidity = () => {
 
   return (
     <div>
-        <Header text={capitalizeFirstLetter()} isAddLiquidity={isAddLiquidity} setIsAddLiquidity={setIsAddLiquidity}/>
+        <Header text={capitalizeFirstLetter()} />
 
         {
-          isAddLiquidity ? (<AddLiquidity />) : (<MyLiquidity />) 
+          search === "addLiquidity" ? (<AddLiquidity />) : (<MyLiquidity />) 
         }
     </div>
   )

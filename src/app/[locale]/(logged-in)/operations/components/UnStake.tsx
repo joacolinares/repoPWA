@@ -55,7 +55,7 @@ const UnStake = ({ dataUnStake }: Props) => {
             </div>
           </div>
           <div>
-            <ButtonPrimary text={t("Approve Contract")} />
+            <ButtonPrimary text={t("Approve Contract")} onClickFn={() => {}}/>
           </div>
         </div>
       </div>

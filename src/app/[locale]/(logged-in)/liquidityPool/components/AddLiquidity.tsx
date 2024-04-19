@@ -20,7 +20,7 @@ const AddLiquidity = () => {
 
       <div className="container-down mb-[60px] px-[24px] pt-[32px] pb-[96px] rounded-t-[40px] bg-gradient-to-t from-[#0E0E33] to-[#39307B]">
         <div className="container-Stake-amount text-white p-6 rounded-[16px] border border-solid border-[#AD98FF] bg-gradient-to-t from-[#0E0E33] to-[#39307B] shadow-md">
-          <h2 className="text-[18px] font-bold mb-4">{t("Stake")}</h2>
+          <h2 className="text-[18px] font-bold mb-4">{t("Withdraw Rewards")}</h2>
           <div className="mb-6 rounded-[10px] border border-solid border-[#F2F3F8] p-2">
             <div className="flex justify-between items-center mb-4">
               <p className="text-[14px] font-bold ">{t("Amount")}</p>

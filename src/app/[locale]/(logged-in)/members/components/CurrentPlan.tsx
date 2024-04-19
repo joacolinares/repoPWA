@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import CheckIcon from "@/assets/icons/CheckIcon";
+import CloseIcon from "@/assets/icons/CloseIcon";
 import { useTranslations } from "next-intl";
 import { useUserPlanStore } from "@/store/user-plan";
 import ButtonPrimary from "@/app/components/generals/ButtonPrimary";
@@ -28,7 +29,7 @@ const CurrentPlan = () => {
               {t("Personalized referral link")}
             </p>
             <div className="container-check bg-[#7A2FF4] rounded-[10px] w-[48px] h-[34px] flex justify-center items-center">
-              <CheckIcon />
+              {plan?.plan === "Basic" ? <CloseIcon /> : <CheckIcon />}
             </div>
           </div>
           <div className="rounded-[10px] bg-[#F2F3F8] flex justify-between items-center p-[8px] my-[24px]">

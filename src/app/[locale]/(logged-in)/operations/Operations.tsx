@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Header from "@/app/components/generals/Header";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import UnStake from "./components/UnStake";
 import Claim from "./components/Claim";
 import {
@@ -16,20 +16,18 @@ interface Props {
 
 const Operations = ({ dataClaim, dataUnStake }: Props) => {
   const pathname = usePathname();
-  const [isUnStake, setIsUnStake] = useState(true);
+  const search = useSearchParams().get("type");
 
   return (
     <div>
       <Header
-        isUnStake={isUnStake}
-        setIsUnStake={setIsUnStake}
         text={pathname.slice(1).charAt(0).toUpperCase() + pathname.slice(2)}
       />
 
-      {isUnStake ? (
-        <UnStake dataUnStake={dataUnStake} />
-      ) : (
+      {search === "claim" ? (
         <Claim dataClaim={dataClaim} />
+      ) : (
+        <UnStake dataUnStake={dataUnStake} />
       )}
     </div>
   );

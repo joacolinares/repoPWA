@@ -102,7 +102,7 @@ const RegisterThree = () => {
           >
             <option value={t("Gender")}>{t("Gender")}</option>
             <option value={t("Man")}>{t("Man")}</option>
-            <option value={t("Women")}>{t("Women")}</option>   
+            <option value={t("Woman")}>{t("Woman")}</option>   
             <option value={t("I prefer not to say")}>
               {t("I prefer not to say")}
             </option>

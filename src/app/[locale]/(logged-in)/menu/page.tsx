@@ -9,6 +9,7 @@ import { useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import HeaderPages from "@/app/components/generals/HeaderPages";
+import Link from "next/link";
 
 interface SvgIcon extends React.FC<React.SVGProps<SVGSVGElement>> {}
 interface ListMenu {
@@ -36,7 +37,7 @@ const MenuPage = () => {
     {
       title: t("Operations"),
       icon: OperationsIcon,
-      link: "/operations",
+      link: "/operations?type=claim",
     },
     {
       title: t("Transactions"),
@@ -57,17 +58,16 @@ const MenuPage = () => {
       />
       <div className="menu-page bg-gradient-to-t from-[#0E0E33] to-[#39307B]">
         {listMenu.map((item, index) => (
-          <div
+          <Link href={item.link}
             key={index}
             className="menu-page-item cursor-pointer"
-            onClick={() => router.push(item.link)}
           >
             <div className="container-img">
               <Image src={item.icon} alt="icon" width={22} height={22} />
             </div>
 
             <span>{item.title}</span>
-          </div>
+          </Link>
         ))}
       </div>
     </>

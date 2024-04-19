@@ -30,20 +30,7 @@ export default function LinealChart() {
       let myChart = echarts.init(document.getElementById("main"));
       const symbolSize = 5;
 
-      const monthNames = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ];
+      const monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
       const dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
       const option = {
@@ -115,9 +102,10 @@ export default function LinealChart() {
 
       const giveOneDay = () => {
         const hours = Array.from({ length: 24 }, (_, i) => i);
-
+        
+        //@ts-ignore
         const lastTwoDays = allGraphic[selectCurrentGraphic].filter(
-          (item, index) => {
+          (item : any) => {
             const date = new Date(item.date);
             const today = new Date();
             const yesterday = new Date(
@@ -155,14 +143,15 @@ export default function LinealChart() {
           return hours;
         }
 
+        //@ts-ignore
         option.xAxis.data = getLastTwentyFourHours().map(
           (hour) => hour + ":00"
         );
 
         option.series[0].data = getLastTwentyFourHours().map((hour) => {
           return lastTwoDays
-            .filter((item) => item.date.includes(hour.replace("-", " ")))
-            .reduce((acc, item) => {
+            .filter((item:any) => item.date.includes(hour.replace("-", " ")))
+            .reduce((acc:any, item:any) => {
               return acc + item.price;
             }, 0);
         });
@@ -171,13 +160,15 @@ export default function LinealChart() {
         myChart.setOption(option);
       };
       const giveMeOneWeek = () => {
+        //@ts-ignore
         option.xAxis.data = getLastDays(7).map(
           (day) => dayNames[new Date(day).getDay()] + "-" + day.split("-")[2]
         );
         option.series[0].data = getLastDays(7).map((day) => {
+        //@ts-ignore
           return allGraphic[selectCurrentGraphic]
-            .filter((item) => item.date.includes(day))
-            .reduce((acc, item) => {
+            .filter((item:any) => item.date.includes(day))
+            .reduce((acc:any, item:any) => {
               return acc + item.price;
             }, 0);
         });
@@ -187,14 +178,16 @@ export default function LinealChart() {
         myChart.setOption(option);
       };
       const giveMeOneMonth = () => {
+        //@ts-ignore
         option.xAxis.data = getLastDays(30).map(
           (day) =>
             monthNames[Number(day.split("-")[1]) - 1] + "-" + day.split("-")[2]
         );
         option.series[0].data = getLastDays(30).map((day) => {
+        //@ts-ignore
           return allGraphic[selectCurrentGraphic]
-            .filter((item) => item.date.includes(day))
-            .reduce((acc, item) => {
+            .filter((item:any) => item.date.includes(day))
+            .reduce((acc:any, item:any) => {
               return acc + item.price;
             }, 0);
         });
@@ -220,8 +213,9 @@ export default function LinealChart() {
 
         option.xAxis.data = getLastTwelveMonths() as never; //meses
         option.series[0].data = getLastTwelveMonths().map((month) => {
+        //@ts-ignore
           return allGraphic[selectCurrentGraphic]
-            .filter((item) => {
+            .filter((item:any) => {
               const monthIndex = monthNames.findIndex((m) => month === m);
 
               // for now: Verificar que sea del año correcto
@@ -232,7 +226,7 @@ export default function LinealChart() {
               const result = item.date.includes(`-${monthText}-`);
               return result;
             })
-            .reduce((acc, item) => {
+            .reduce((acc:any, item:any) => {
               return acc + item.price;
             }, 0);
         });
@@ -254,7 +248,7 @@ export default function LinealChart() {
         giveMeTheMonths(12);
       }
     }
-  }, [allGraphic, selectCurrentPeriod]);
+  }, [allGraphic, selectCurrentPeriod, selectCurrentGraphic]);
 
   const classButton =
     "btn-primary text-white bg-[#AD98FF] focus:ring-4 focus:ring-blue-300 font-medium rounded-[10px] text-[14px] px-3 py-2 focus:outline-none";
@@ -264,35 +258,41 @@ export default function LinealChart() {
       <div className="flex justify-between items-center p-4">
         <p className="text-[20px] text-[#1E0E39] font-bold ">$ 60.0000</p>
         <div className="flex items-center justify-between">
-          <button className={`${classButton} mr-2`}>{t("Stakes")}</button>
-          <button className={classButton}>{t("Claims")}</button>
+          <button className={`${classButton} mr-2`} onClick={() => setSelectCurrentGraphic("data1")}>{t("Stakes")}</button>
+          <button className={classButton} onClick={() => setSelectCurrentGraphic("data2")}>{t("Claims")}</button>
         </div>
       </div>
-      <div id="main" style={{ width: "600px", height: "300px" }}></div>
-      <div className="p-4 flex align-center justify-center">
-        <div className="px-4 py-1 rounded-[8px] bg-[#F2F3F8] shadow-md">
-          {periodTheGraphic.map((period, index) => (
-            <button
-              className="
-                btn 
-                hover:bg-[#612DFE] 
-                hover:text-white
-                text-[14px] 
-                font-bold
-                text-[#A9AEB4]
-                rounded-[6px]
-                px-3 
-                py-1 
-                me-2 
-                my-2 
-              "
-              key={index}
-              onClick={() => setSelectCurrentPeriod(period)}
-            >
-              {period}
-            </button>
-          ))}
+      <div className="mx-auto">
+        <div className="overflow-auto">
+          <div id="main" style={{ width: "600px", height: "300px" }}></div>
         </div>
+          {/* <div id="main" style={{ position: "relative", height:"300px", overflow:"hidden", width: "100vw"}}></div> */}
+
+          <div className="p-4 flex align-center justify-center">
+            <div className="px-4 py-1 rounded-[8px] bg-[#F2F3F8] shadow-md">
+              {periodTheGraphic.map((period, index) => (
+                <button
+                  className="
+                    btn 
+                    hover:bg-[#612DFE] 
+                    hover:text-white
+                    text-[14px] 
+                    font-bold
+                    text-[#A9AEB4]
+                    rounded-[6px]
+                    px-2 
+                    py-1 
+                    me-1 
+                    my-1 
+                  "
+                  key={index}
+                  onClick={() => setSelectCurrentPeriod(period)}
+                >
+                  {period}
+                </button>
+              ))}
+            </div>
+          </div>
       </div>
     </div>
   );

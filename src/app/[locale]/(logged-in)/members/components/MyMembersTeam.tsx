@@ -31,7 +31,7 @@ const MyMembersTeam = () => {
   const getLevel = (level: DataMembers) => {
     if (level) {
         selectPlan(level);
-      router.push(`/members/level${level.level}`);
+      router.push(`/members/levelMember/level${level.level}`);
     }
   };
 

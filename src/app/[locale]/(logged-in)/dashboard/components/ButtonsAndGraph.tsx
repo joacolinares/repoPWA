@@ -1,23 +1,22 @@
 "use client";
+import React from "react";
 import ButtonPrimary from "@/app/components/generals/ButtonPrimary";
 import ButtonSecondary from "@/app/components/generals/ButtonSecondary";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
-import React from "react";
+import Link from "next/link";
 
 const ButtonsAndGraph = () => {
   const t = useTranslations();
-  const router = useRouter();
 
   return (
     <div className="component-buttons-graph p-[24px]">
       <div className="container-btn flex justify-between items-center">
-        <div className="w-[48%]">
-          <ButtonPrimary text={t("Stake")} onClickFn={() => router.push("/stake")}/>
-        </div>
-        <div className="w-[48%]">
-          <ButtonSecondary text={t("Un-Stake")} onClickFn={() => router.push("/operations")}/>
-        </div>
+        <Link href={"/liquidityPool?type=addLiquidity"} className="w-[48%]">
+          <ButtonPrimary text={t("Stake")} />
+        </Link>
+        <Link href={"/operations?type=unStake"} className="w-[48%]">
+          <ButtonSecondary text={t("Un-Stake")}/>
+        </Link>
     </div>
     </div>
 

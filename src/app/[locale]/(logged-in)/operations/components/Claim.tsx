@@ -74,7 +74,7 @@ const Claim = ({ dataClaim }: Props) => {
           </div>
 
           <div>
-            <ButtonPrimary text={t("Claim")} />
+            <ButtonPrimary text={t("Claim")} onClickFn={() => {}}/>
           </div>
         </div>
       </div>

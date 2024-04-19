@@ -13,13 +13,9 @@ import HeaderLiquidity from "@/app/[locale]/(logged-in)/liquidityPool/components
 
 type HeaderPagesProps = {
   text: string;
-  isUnStake?: boolean;
-  setIsUnStake?: (value: boolean) => void | undefined;
-  isAddLiquidity?: boolean;
-  setIsAddLiquidity?: (value: boolean) => void | undefined;
 };
 
-const Header = ({ text, isUnStake, setIsUnStake, isAddLiquidity, setIsAddLiquidity }: HeaderPagesProps) => {
+const Header = ({ text }: HeaderPagesProps) => {
   const pathname = usePathname();
   const t = useTranslations();
   const router = useRouter();
@@ -31,8 +27,8 @@ const Header = ({ text, isUnStake, setIsUnStake, isAddLiquidity, setIsAddLiquidi
       {pathname === "/profile" ? <ProfileHeader /> : null}
       {pathname === "/members" ? <MembersHeader /> : null}
       {pathname === "/rewardPool" ? <RewardHeader /> : null}
-      {pathname === "/operations" ? <HeaderOperations isUnStake={isUnStake} setIsUnStake={setIsUnStake}/> : null}
-      {pathname === "/liquidityPool" ? <HeaderLiquidity isAddLiquidity={isAddLiquidity} setIsAddLiquidity={setIsAddLiquidity}/> : null}
+      {pathname === "/operations" ? <HeaderOperations /> : null}
+      {pathname === "/liquidityPool" ? <HeaderLiquidity /> : null}
       {pathname === "/governance" ? <ButtonPrimary text={t("Create Proposal")} onClickFn={() => router.push("/governance/create")}/> : null}
     </div>
   );

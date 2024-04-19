@@ -14,7 +14,7 @@
     "Get started": "Get started",
     "Gender": "Gender",
     "Man": "Man",
-    "Women": "Women",
+    "Woman": "Woman",
     "I prefer not to say": "I prefer not to say",
     "Date of Birth": "Date of Birth",
     "Select your Date of Birth": "Select your Date of Birth",
@@ -150,5 +150,10 @@
     "Total Rewards": "Total Rewards",
     "TOTAL MEMBERSHIP": "TOTAL MEMBERSHIP",
     "REWARDS": "REWARDS",
-    "My Share": "My Share"
+    "My Share": "My Share",
+    "Withdraw Rewards": "Withdraw Rewards",
+    "Total Value Locked": "Total Value Locked",
+    "Click to Claim": "Click to Claim",
+    "Processing your Request": "Processing your Request...",
+    "Done": "Done"
 }
