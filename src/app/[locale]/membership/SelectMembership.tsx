@@ -14,7 +14,7 @@ import { useUserPlanStore } from "@/store/user-plan";
 import Navbar from "@/app/components/generals/Navbar";
 import ProcessingIcon from "@/assets/imgs/processingGifModal.gif";
 import CheckDone from "@/assets/icons/checkDone.svg";
-import { BinanceTestnet, PolygonAmoyTestnet } from "@thirdweb-dev/chains";
+import {  PolygonAmoyTestnet } from "@thirdweb-dev/chains";
 import { ThirdwebProvider, Web3Button } from "@thirdweb-dev/react";
 import abi from './abis/abi.json'
 import abiToken from './abis/abiToken.json'
@@ -39,16 +39,16 @@ const SelectMembership = ({ dataPlans }: Props) => {
   const { updatePlan } = useUserPlanStore();
 
   const handleSelectPlan = (plan: string): void => {
-    let number = 5;
+    let number = 1;
     if (plan) {
       const findPlan = dataPlans.find((p) => p.plan === plan);
       if (findPlan) {
         setSelectedPlan(findPlan);
         updatePlan(findPlan);
         if (plan === "Essential") {
-          number = 6;
+          number = 2;
         } else if (plan === "Premium") {
-          number = 7;
+          number = 3;
         }
       }
     }
@@ -58,7 +58,6 @@ const SelectMembership = ({ dataPlans }: Props) => {
   const confirmMembership = () => {
   console.log("a")
    
-    if (selectedPlan) {
       setIsModalProcessingOpen(true);
       setIsProcessing(true);
 
@@ -70,7 +69,6 @@ const SelectMembership = ({ dataPlans }: Props) => {
         setIsModalProcessingOpen(false);
         // router.push("/dashboard");
       }, 3000);
-    }
   };
 
   const confirmMembership2 = () => {
@@ -232,21 +230,27 @@ const SelectMembership = ({ dataPlans }: Props) => {
           pathname === "/membership" ? "mb-6" : "mb-[90px]"
         }`}
       >
-        {pathname === "/membership" ? (
+        {
+        /*
+        pathname === "/membership" ? (
           <ButtonPrimary text={t("Confirm")} onClickFn={confirmMembership} />
         ) : (
           <ButtonPrimary text={t("Upgrade")} onClickFn={upgradePlan} />
-        )}
+        )
+        
+        */
+        }
 
 {
           aprobado
           ?
           <Web3Button
           //  contractAddress="0x0cda7c31216405d997479f3e0219a5d9f3d9909c"
-          contractAddress="0x0e07D1e7495aE9ACBf51CD960459127131C94898"
+          contractAddress="0x3D7593DAD82286c3e4CD56925f45F58278BB477c"
           contractAbi={abi}
           action={async (contract) => {
 
+           // confirmMembership()
             const currentUrl = window.location.href;
             const queryStringIndex = currentUrl.indexOf("?");
             if (queryStringIndex !== -1) {
@@ -271,14 +275,15 @@ const SelectMembership = ({ dataPlans }: Props) => {
           :
           <Web3Button
           //  contractAddress="0x0cda7c31216405d997479f3e0219a5d9f3d9909c"
-          contractAddress="0x3157fF0829AC9F9be8a31129980e424638Bf390E"
+          contractAddress="0xDdF63539728e91ed3fB8E67ECEaDD19eE7D07D10"
           contractAbi={abiToken}
           action={async (contract) => {
-           
-            await contract.call("approve", ["0x0e07D1e7495aE9ACBf51CD960459127131C94898", ethers.constants.MaxUint256])
+            
+            await contract.call("approve", ["0x3D7593DAD82286c3e4CD56925f45F58278BB477c", ethers.constants.MaxUint256])
+            confirmMembership()
             setAprobado(true)
           }}
-          onSuccess={(result) =>  confirmMembership()}
+         // onSuccess={(result) =>  }
           onError={(error) => alert(`Error --> ${error.message}`)}
           className="buyMembershipClass"
         >

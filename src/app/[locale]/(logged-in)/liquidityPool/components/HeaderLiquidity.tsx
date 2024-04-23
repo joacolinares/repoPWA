@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
 
-const HeaderLiquidity = ({type}: {type?:string} ) => {
+const HeaderLiquidity = ({type}: {type?:any} ) => {
      const t = useTranslations();
      const router = useRouter()
      const search = useSearchParams().get("type");

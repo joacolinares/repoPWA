@@ -10,7 +10,8 @@ import ButtonPrimary from "./ButtonPrimary";
 import { useTranslations } from "next-intl";
 import HeaderOperations from "@/app/[locale]/(logged-in)/operations/components/HeaderOperations";
 import HeaderLiquidity from "@/app/[locale]/(logged-in)/liquidityPool/components/HeaderLiquidity";
-
+import { ThirdwebProvider } from "@thirdweb-dev/react";
+import {  PolygonAmoyTestnet } from "@thirdweb-dev/chains";
 type HeaderPagesProps = {
   text: string;
 };
@@ -21,6 +22,11 @@ const Header = ({ text }: HeaderPagesProps) => {
   const router = useRouter();
 
   return (
+    <ThirdwebProvider
+    // activeChain={BinanceTestnet}
+    activeChain={PolygonAmoyTestnet}
+    clientId="95347962d3e713129610a9c9f4dbce58"
+  >
     <div className="header">
       <Navbar text={text} />
       {pathname === "/dashboard" ? <DataStakesClaims /> : null}
@@ -31,6 +37,7 @@ const Header = ({ text }: HeaderPagesProps) => {
       {pathname === "/liquidityPool" ? <HeaderLiquidity /> : null}
       {pathname === "/governance" ? <ButtonPrimary text={t("Create Proposal")} onClickFn={() => router.push("/governance/create")}/> : null}
     </div>
+    </ThirdwebProvider>
   );
 };
 

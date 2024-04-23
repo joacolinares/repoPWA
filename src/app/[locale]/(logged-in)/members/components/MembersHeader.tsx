@@ -1,31 +1,86 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ButtonPrimary from "@/app/components/generals/ButtonPrimary";
 import { useTranslations } from "next-intl";
 import { useRouter, redirect } from 'next/navigation';
+import { ThirdwebSDK } from "@thirdweb-dev/sdk";
+import {  PolygonAmoyTestnet } from "@thirdweb-dev/chains";
+import abi from './abis/abi.json'
+import { ThirdwebProvider, useAddress } from "@thirdweb-dev/react";
+
+
 
 const MembersHeader = () => {
   const t = useTranslations();
   const router = useRouter();
 
+  const [sponsorSplitAcumulation, setSponsorSplitAcumulation] = useState(0)
+  const [claims, setClaims] = useState(0)
+  const [team, setTeam] = useState(0)
+
+
   const redirectToWithdrawRewards = () => {
     router.push("/members/withdraw");
   }
 
+  const address = useAddress()
+ 
+
+  const loadInfo = async() =>{
+    const sdk = new ThirdwebSDK(PolygonAmoyTestnet);
+    const contract = await sdk.getContract(
+      "0x3D7593DAD82286c3e4CD56925f45F58278BB477c", 
+      abi,
+    );
+
+
+    if(address != undefined){
+      const sponsorSplitAcumulation = await contract.call(
+        "sponsorSplitAcumulation", 
+        [address]
+      );
+      console.log(sponsorSplitAcumulation)
+      console.log(parseInt(sponsorSplitAcumulation._hex,16))
+      const claims = await contract.call(
+        "claims", 
+        [address]
+      );
+      const team = await contract.call(
+        "team", 
+        [address]
+      );
+
+      setSponsorSplitAcumulation(parseInt(sponsorSplitAcumulation._hex,16))
+      setClaims(parseInt(claims._hex,16))
+      setTeam(parseInt(team._hex,16))
+
+      console.log(team)
+
+    }
+  }
+
+
+  useEffect(() => {
+    loadInfo()
+  }, [address])
+
+
+
   return (
+
     <div className="members-header px-6">
       <div className="container p-2 rounded-[16px] border-solid border-[1.2px] border-[#7A2FF4]">
         <div className="container-totalStaked rounded-[10px] bg-[#7A2FF4] p-6 text-white text-center">
-          <p className="text-[24px] font-bold mb-2">$ 10,000.00</p>
+          <p className="text-[24px] font-bold mb-2">$ {sponsorSplitAcumulation / 1000000000000000000}  </p>
           <p className="text-[14px]">{t("Available Rewards")}</p>
         </div>
         <div className="container-members-estimated mt-2 flex justify-between items-center text-center text-[#7A2FF4] space-x-2">
           <div className="container-MyMembers bg-[#F2F3F8] flex flex-col justify-center items-center rounded-[10px] py-2 px-4 w-2/4 h-[75px]">
-            <p className="text-[16px] font-bold mb-1">15</p>
+            <p className="text-[16px] font-bold mb-1">{team}</p>
             <p className="text-[14px]">{t("My Members Team")}</p>
           </div>
           <div className="container-totalStaked bg-[#F2F3F8] flex flex-col justify-center items-center rounded-[10px] py-2 px-4 w-2/4 h-[75px]">
-            <p className="text-[16px] font-bold mb-1">$ 15,000.00</p>
+            <p className="text-[16px] font-bold mb-1">$ {claims / 1000000000000000000}</p>
             <p className="text-[14px]">{t("Total Rewards")}</p>
           </div>
         </div>

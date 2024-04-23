@@ -44,7 +44,7 @@ const LevelMembers = () => {
         <p className="text-[14px] mb-4">{t("Tap on each one to see more")}</p>
 
 
-        {lvlStore.membersInfo?.length > 0 ? (     
+        {lvlStore.membersInfo && lvlStore.membersInfo.length > 0 ? (     
         <div className="container-levels-members py-4 rounded-2xl bg-[#ffffff14]">
           {lvlStore.membersInfo?.map((item) => (
             <div

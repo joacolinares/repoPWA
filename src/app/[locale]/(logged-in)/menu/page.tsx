@@ -14,9 +14,12 @@ import Link from "next/link";
 interface SvgIcon extends React.FC<React.SVGProps<SVGSVGElement>> {}
 interface ListMenu {
   title: string;
-  icon: SvgIcon;
+  icon: any;
   link: string;
 }
+
+
+
 
 const MenuPage = () => {
   const t = useTranslations();

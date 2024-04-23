@@ -17,7 +17,7 @@ const Governance = ({ governanceSigner }: Props) => {
   const t = useTranslations();
 
   // funcion para recortar la wallet
-  const recortarWallet = (userAddress: string) => {
+  const recortarWallet = (userAddress: any) => {
     let onePart = null;
     let twoPart = null;
 

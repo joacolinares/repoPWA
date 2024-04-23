@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-const HeaderOperations = ({ type }: { type?: string }) => {
+const HeaderOperations = ({ type }: { type?: any }) => {
   const t = useTranslations();
   const router = useRouter();
   const search = useSearchParams().get("type");
@@ -14,6 +14,8 @@ const HeaderOperations = ({ type }: { type?: string }) => {
     const searchParams = new URLSearchParams({ type });
     router.push(`/operations?${searchParams.toString()}`);
   };
+
+  
 
   return (
     <div className="h-[35px] px4 rounded-[10px] bg-[#ffffff1a] flex items-center justify-between">
