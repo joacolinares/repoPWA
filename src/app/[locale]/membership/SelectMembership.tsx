@@ -14,7 +14,12 @@ import { useUserPlanStore } from "@/store/user-plan";
 import Navbar from "@/app/components/generals/Navbar";
 import ProcessingIcon from "@/assets/imgs/processingGifModal.gif";
 import CheckDone from "@/assets/icons/checkDone.svg";
-
+import { BinanceTestnet, PolygonAmoyTestnet } from "@thirdweb-dev/chains";
+import { ThirdwebProvider, Web3Button } from "@thirdweb-dev/react";
+import abi from './abis/abi.json'
+import abiToken from './abis/abiToken.json'
+import { ethers } from "ethers";
+import './buttonStyle.css'
 interface Props {
   dataPlans: PlansMembership[];
 }
@@ -27,34 +32,59 @@ const SelectMembership = ({ dataPlans }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalProcessingOpen, setIsModalProcessingOpen] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
-
+  const [aprobado, setAprobado] = useState(false)
   const router = useRouter();
   const pathname = usePathname();
-
+  const [selectedPlanNumber, setSelectedPlanNumber] = useState(0)
   const { updatePlan } = useUserPlanStore();
 
   const handleSelectPlan = (plan: string): void => {
+    let number = 5;
     if (plan) {
       const findPlan = dataPlans.find((p) => p.plan === plan);
       if (findPlan) {
         setSelectedPlan(findPlan);
         updatePlan(findPlan);
+        if (plan === "Essential") {
+          number = 6;
+        } else if (plan === "Premium") {
+          number = 7;
+        }
       }
     }
+    setSelectedPlanNumber(number);
   };
 
   const confirmMembership = () => {
+  console.log("a")
+   
     if (selectedPlan) {
       setIsModalProcessingOpen(true);
       setIsProcessing(true);
 
       setTimeout(() => {
         setIsProcessing(false);
-      }, 5000);
+       // setIsModalProcessingOpen(false);
+      }, 2000);
+      setTimeout(() => {
+        setIsModalProcessingOpen(false);
+        // router.push("/dashboard");
+      }, 3000);
+    }
+  };
+
+  const confirmMembership2 = () => {
+    if (selectedPlan) {
+      setIsModalProcessingOpen(true);
+      setIsProcessing(true);
+
+      setTimeout(() => {
+        setIsProcessing(false);
+      }, 2000);
 
       setTimeout(() => {
         router.push("/dashboard");
-      }, 6000);
+      }, 3000);
     }
   };
 
@@ -85,7 +115,19 @@ const SelectMembership = ({ dataPlans }: Props) => {
         .slice(1)
     : pathname.charAt(0).toUpperCase() + pathname.slice(1);
 
+
+
+
+
+
+
+
   return (
+    <ThirdwebProvider
+      // activeChain={BinanceTestnet}
+      activeChain={PolygonAmoyTestnet}
+      clientId="95347962d3e713129610a9c9f4dbce58"
+    >
     <div className={`container-Membership`}>
       <div className="header">
         {pathname !== "/membership" ? (
@@ -196,6 +238,55 @@ const SelectMembership = ({ dataPlans }: Props) => {
           <ButtonPrimary text={t("Upgrade")} onClickFn={upgradePlan} />
         )}
 
+{
+          aprobado
+          ?
+          <Web3Button
+          //  contractAddress="0x0cda7c31216405d997479f3e0219a5d9f3d9909c"
+          contractAddress="0x0e07D1e7495aE9ACBf51CD960459127131C94898"
+          contractAbi={abi}
+          action={async (contract) => {
+
+            const currentUrl = window.location.href;
+            const queryStringIndex = currentUrl.indexOf("?");
+            if (queryStringIndex !== -1) {
+              const queryString = currentUrl.slice(queryStringIndex + 1);
+              const params = new URLSearchParams(queryString);
+              const referralWallet = params.get("refferalWallet");
+              console.log(referralWallet)
+              console.log(selectedPlan)
+              if (referralWallet) {
+                await contract.call("buyMembership", [selectedPlanNumber, referralWallet])
+              }else{
+                await contract.call("buyMembership", [selectedPlanNumber, "0x0000000000000000000000000000000000000123"])
+              }
+            } 
+          }}
+          onSuccess={(result) => confirmMembership2()}
+          onError={(error) => alert(`Error --> ${error.message}`)}
+          className="buyMembershipClass"
+        >
+          {t("Confirm!")}
+        </Web3Button>
+          :
+          <Web3Button
+          //  contractAddress="0x0cda7c31216405d997479f3e0219a5d9f3d9909c"
+          contractAddress="0x3157fF0829AC9F9be8a31129980e424638Bf390E"
+          contractAbi={abiToken}
+          action={async (contract) => {
+           
+            await contract.call("approve", ["0x0e07D1e7495aE9ACBf51CD960459127131C94898", ethers.constants.MaxUint256])
+            setAprobado(true)
+          }}
+          onSuccess={(result) =>  confirmMembership()}
+          onError={(error) => alert(`Error --> ${error.message}`)}
+          className="buyMembershipClass"
+        >
+          {t("Approve expenses")}
+        </Web3Button>
+        }
+
+
         <ModalComponent
           isOpen={isModalProcessingOpen}
           setIsOpen={setIsModalProcessingOpen}
@@ -233,6 +324,7 @@ const SelectMembership = ({ dataPlans }: Props) => {
         </ModalComponent>
       </div>
     </div>
+    </ThirdwebProvider>
   );
 };
 
