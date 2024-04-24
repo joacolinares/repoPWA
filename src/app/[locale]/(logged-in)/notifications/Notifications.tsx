@@ -2,7 +2,7 @@
 import React from "react";
 import { usePathname, useRouter } from "next/navigation";
 import NotificationActive from "@/assets/icons/notificationsActive.svg";
-import NotificationInActive from "@/assets/icons/notificationsInActive.svg";
+//import NotificationInActive from "@/assets/icons/notificationsInActive.svg";
 import { MessagesNotifications } from "./components/moskData";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
@@ -86,7 +86,7 @@ const Notifications = ({ messages }: Props) => {
                     key={message.id}
                     className="p-4 flex items-center border-b border-solid border-[#F2F3F8]"
                   >
-                    <div
+                  {/*  <div
                       className={`p-2 w-[34px] h-[34px] rounded-full mr-4  ${
                         message.isRead ? "bg-[#A9AEB4]" : "bg-[#20DABB]"
                       }`}
@@ -96,7 +96,7 @@ const Notifications = ({ messages }: Props) => {
                       ) : (
                         <Image src={NotificationInActive} alt="notification" />
                       )}
-                    </div>
+                      </div>*/}
                     <div>
                       <p className="text-[14px] font-bold text-[#554D77] mb-2">
                         {message.msg}
