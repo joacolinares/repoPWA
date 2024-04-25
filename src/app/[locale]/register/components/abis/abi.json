@@ -1,0 +1,110 @@
+[
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_encryptedEmail",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_encryptedName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_encryptedUsername",
+				"type": "string"
+			}
+		],
+		"name": "storeInfo1",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_encryptedPhoneNumber",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_encryptedCountry",
+				"type": "string"
+			}
+		],
+		"name": "storeInfo2",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_encryptedGender",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_encryptedDateOfBirth",
+				"type": "string"
+			}
+		],
+		"name": "storeInfo3",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "personalDataMap",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "encryptedEmail",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "encryptedName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "encryptedUsername",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "encryptedPhoneNumber",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "encryptedCountry",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "encryptedGender",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "encryptedDateOfBirth",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]

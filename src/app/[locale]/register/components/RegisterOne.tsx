@@ -3,6 +3,11 @@ import { useTranslations } from "next-intl";
 import React, { useState } from "react";
 import ButtonPrimary from "../../../components/generals/ButtonPrimary";
 import { validateEmail, validateFullName, validateUserName } from "@/utils/value_object_register_steps";
+import { ThirdwebProvider, Web3Button } from "@thirdweb-dev/react";
+var CryptoJS = require( 'crypto-js' );
+import abi from './abis/abi.json'
+import './buttonStyle.css'
+import {  PolygonAmoyTestnet } from "@thirdweb-dev/chains";
 
 type Props = {
   setStepCompleted: (value: number) => void;
@@ -103,7 +108,39 @@ const RegisterOne = ({ setStepCompleted}: Props) => {
     }
   }
   
+
+ const cifrado2 = async () => {
+  
+  const secretMessage = 'joacolinares2003@gmail.com';
+  const secretKey = 'b52b4f45b6e9337b57869d7cb718c693';
+
+  const encryptedMessage = CryptoJS.AES.encrypt(secretMessage, CryptoJS.enc.Hex.parse(secretKey), {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7
+  });
+  const encryptedHex = encryptedMessage.ciphertext.toString(CryptoJS.enc.Hex);
+
+  console.log('Cifrado (hexadecimal):', encryptedHex);
+
+  const cipherParams = CryptoJS.lib.CipherParams.create({
+      ciphertext: CryptoJS.enc.Hex.parse(encryptedHex)
+  });
+  const decryptedBytes = CryptoJS.AES.decrypt(cipherParams, CryptoJS.enc.Hex.parse(secretKey), {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7
+  });
+  const decryptedMessage = decryptedBytes.toString(CryptoJS.enc.Utf8);
+
+  console.log('Descifrado (UTF-8):', decryptedMessage);
+};
+
+
   return (
+    <ThirdwebProvider
+    // activeChain={BinanceTestnet}
+    activeChain={PolygonAmoyTestnet}
+    clientId="95347962d3e713129610a9c9f4dbce58"
+  >
     <div className="registerOne">
       <div>
         <div className="container-input-label">
@@ -148,12 +185,48 @@ const RegisterOne = ({ setStepCompleted}: Props) => {
       </div>
 
       <div>
-        <ButtonPrimary
+       {/* <ButtonPrimary
           text={t("Continue")}
           onClickFn={() => sendDataValues()}
-        />
+  />*/}
+
+<Web3Button
+          //  contractAddress="0x0cda7c31216405d997479f3e0219a5d9f3d9909c"
+          contractAddress="0xb9A0d17E8B0F5A9514Cc03D3C0fC2851b1d87E0b"
+          contractAbi={abi}
+          action={async (contract: any) => {
+            console.log(email)
+            console.log(fullName)
+            console.log(username)
+            var secretKey = 'b52b4f45b6e9337b57869d7cb718c693';
+            const encryptedMessage = CryptoJS.AES.encrypt(email, CryptoJS.enc.Hex.parse(secretKey), {
+                mode: CryptoJS.mode.ECB,
+                padding: CryptoJS.pad.Pkcs7
+            });
+            const encryptedHex = encryptedMessage.ciphertext.toString(CryptoJS.enc.Hex);
+            const encryptedMessage2 = CryptoJS.AES.encrypt(fullName, CryptoJS.enc.Hex.parse(secretKey), {
+              mode: CryptoJS.mode.ECB,
+              padding: CryptoJS.pad.Pkcs7
+          });
+          const encryptedHex2 = encryptedMessage2.ciphertext.toString(CryptoJS.enc.Hex);
+          const encryptedMessage3 = CryptoJS.AES.encrypt(username, CryptoJS.enc.Hex.parse(secretKey), {
+            mode: CryptoJS.mode.ECB,
+            padding: CryptoJS.pad.Pkcs7
+        });
+        const encryptedHex3 = encryptedMessage3.ciphertext.toString(CryptoJS.enc.Hex);
+        
+               await contract.call("storeInfo1", [encryptedHex, encryptedHex2,encryptedHex3])
+            
+          }}
+          onSuccess={(result) => setStepCompleted(2)}
+          onError={(error) => alert(`Error --> ${error.message}`)}
+          className="buyMembershipClass"
+        >
+          {t("Continue")}
+        </Web3Button>
       </div>
     </div>
+    </ThirdwebProvider>
   );
 };
 

@@ -4,6 +4,12 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import {UserRegisterState, useUserRegisterStore} from "@/store/user-register"
+import { ThirdwebProvider, Web3Button } from "@thirdweb-dev/react";
+var CryptoJS = require( 'crypto-js' );
+import abi from './abis/abi.json'
+import './buttonStyle.css'
+import {  PolygonAmoyTestnet } from "@thirdweb-dev/chains";
+
 
 const RegisterThree = () => {
   const t = useTranslations();
@@ -89,6 +95,11 @@ const RegisterThree = () => {
   }
 
   return (
+    <ThirdwebProvider
+    // activeChain={BinanceTestnet}
+    activeChain={PolygonAmoyTestnet}
+    clientId="95347962d3e713129610a9c9f4dbce58"
+  >
     <div className="registerThree">
       <div>
         <div className="container-input-label">
@@ -125,9 +136,42 @@ const RegisterThree = () => {
       </div>
 
       <div>
-        <ButtonPrimary text={t("Get started")!} onClickFn={sendDataValues}/>
+        {/*<ButtonPrimary text={t("Get started")!} onClickFn={sendDataValues}/>*/}
+
+
+        <Web3Button
+          //  contractAddress="0x0cda7c31216405d997479f3e0219a5d9f3d9909c"
+          contractAddress="0xb9A0d17E8B0F5A9514Cc03D3C0fC2851b1d87E0b"
+          contractAbi={abi}
+          action={async (contract: any) => {
+            console.log(gender)
+            console.log(dateOfBirth)
+            var secretKey = 'b52b4f45b6e9337b57869d7cb718c693';
+            const encryptedMessage = CryptoJS.AES.encrypt(gender, CryptoJS.enc.Hex.parse(secretKey), {
+                mode: CryptoJS.mode.ECB,
+                padding: CryptoJS.pad.Pkcs7
+            });
+            const encryptedHex = encryptedMessage.ciphertext.toString(CryptoJS.enc.Hex);
+            const encryptedMessage2 = CryptoJS.AES.encrypt(dateOfBirth, CryptoJS.enc.Hex.parse(secretKey), {
+              mode: CryptoJS.mode.ECB,
+              padding: CryptoJS.pad.Pkcs7
+          });
+          const encryptedHex2 = encryptedMessage2.ciphertext.toString(CryptoJS.enc.Hex);
+        
+          await contract.call("storeInfo3", [encryptedHex, encryptedHex2])
+            
+          }}
+          onSuccess={(result) => router.push("/knowOurTerms")}
+          onError={(error) => alert(`Error --> ${error.message}`)}
+          className="buyMembershipClass"
+        >
+          {t("Continue")}
+        </Web3Button>
+
+
       </div>
     </div>
+    </ThirdwebProvider>
   );
 };
 

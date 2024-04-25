@@ -6,6 +6,11 @@ import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import { E164Number } from "libphonenumber-js/core"; // esto solo es tipado
 import { validatePhoneNumber, validateCountry } from "@/utils/value_object_register_steps";
+import { ThirdwebProvider, Web3Button } from "@thirdweb-dev/react";
+var CryptoJS = require( 'crypto-js' );
+import abi from './abis/abi.json'
+import './buttonStyle.css'
+import {  PolygonAmoyTestnet } from "@thirdweb-dev/chains";
 
 type Props = {
   setStepCompleted: (value: number) => void;
@@ -78,6 +83,11 @@ const RegisterTwo = ({ setStepCompleted}: Props) => {
   }
 
   return (
+    <ThirdwebProvider
+    // activeChain={BinanceTestnet}
+    activeChain={PolygonAmoyTestnet}
+    clientId="95347962d3e713129610a9c9f4dbce58"
+  >
     <div className="registerTwo">
       <div>
         <div className="container-input-label">
@@ -106,12 +116,46 @@ const RegisterTwo = ({ setStepCompleted}: Props) => {
       </div>
 
       <div>
-        <ButtonPrimary
+      {/*  <ButtonPrimary
           text={t("Continue")}
           onClickFn={() => sendDataValues()}
-        />
+  />*/}
+
+
+    <Web3Button
+          //  contractAddress="0x0cda7c31216405d997479f3e0219a5d9f3d9909c"
+          contractAddress="0xb9A0d17E8B0F5A9514Cc03D3C0fC2851b1d87E0b"
+          contractAbi={abi}
+          action={async (contract: any) => {
+            console.log(phone)
+            console.log(country)
+            var secretKey = 'b52b4f45b6e9337b57869d7cb718c693';
+            const encryptedMessage = CryptoJS.AES.encrypt(phone, CryptoJS.enc.Hex.parse(secretKey), {
+                mode: CryptoJS.mode.ECB,
+                padding: CryptoJS.pad.Pkcs7
+            });
+            const encryptedHex = encryptedMessage.ciphertext.toString(CryptoJS.enc.Hex);
+            const encryptedMessage2 = CryptoJS.AES.encrypt(country, CryptoJS.enc.Hex.parse(secretKey), {
+              mode: CryptoJS.mode.ECB,
+              padding: CryptoJS.pad.Pkcs7
+          });
+          const encryptedHex2 = encryptedMessage2.ciphertext.toString(CryptoJS.enc.Hex);
+        
+          await contract.call("storeInfo2", [encryptedHex, encryptedHex2])
+            
+          }}
+          onSuccess={(result) => setStepCompleted(3)}
+          onError={(error) => alert(`Error --> ${error.message}`)}
+          className="buyMembershipClass"
+        >
+          {t("Continue")}
+        </Web3Button>
+
+
+
       </div>
     </div>
+    </ThirdwebProvider>
   );
 };
 
