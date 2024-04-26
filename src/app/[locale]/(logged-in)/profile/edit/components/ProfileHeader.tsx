@@ -4,14 +4,21 @@ import ProfilePic from './ProfilePic'
 import { useUserRegisterStore } from '@/store/user-register';
 import ButtonPrimary from '@/app/components/generals/ButtonPrimary';
 import { useTranslations } from 'next-intl';
+import { useAddress } from '@thirdweb-dev/react';
 
 const ProfileHeader = () => {
   const t = useTranslations();
   const userStore = useUserRegisterStore();
-
+  const wallet = useAddress()
   const copyReferralLink = () => {
     // cambiar el userStore.email por el link de referido
-    navigator.clipboard.writeText(userStore.email)
+    const baseURL = window.location.origin;
+
+    // Construir la URL completa con el segmento adicional
+    const referralLink = `${baseURL}/membership?refferalWallet=${wallet}`;
+
+    // Copiar el enlace al portapapeles
+    navigator.clipboard.writeText(referralLink);
   }
 
   return (

@@ -6,7 +6,7 @@ import ButtonSecondary from "@/app/components/generals/ButtonSecondary";
 import { PlansMembership } from "@/app/[locale]/membership/moskData";
 import CheckIcon from "@/assets/icons/CheckIcon";
 import CloseIcon from "@/assets/icons/CloseIcon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalComponent from "@/app/components/generals/ModalComponent";
 import ButtonPrimary from "@/app/components/generals/ButtonPrimary";
 import { usePathname, useRouter } from "next/navigation";
@@ -15,7 +15,7 @@ import Navbar from "@/app/components/generals/Navbar";
 import ProcessingIcon from "@/assets/imgs/processingGifModal.gif";
 import CheckDone from "@/assets/icons/checkDone.svg";
 import {  PolygonAmoyTestnet } from "@thirdweb-dev/chains";
-import { ThirdwebProvider, Web3Button } from "@thirdweb-dev/react";
+import { ThirdwebProvider, ThirdwebSDK, Web3Button } from "@thirdweb-dev/react";
 import abi from './abis/abi.json'
 import abiToken from './abis/abiToken.json'
 import { ethers } from "ethers";
@@ -23,6 +23,14 @@ import './buttonStyle.css'
 interface Props {
   dataPlans: PlansMembership[];
 }
+
+
+
+
+
+
+
+
 
 const SelectMembership = ({ dataPlans }: Props) => {
   const t = useTranslations();
@@ -37,6 +45,13 @@ const SelectMembership = ({ dataPlans }: Props) => {
   const pathname = usePathname();
   const [selectedPlanNumber, setSelectedPlanNumber] = useState(0)
   const { updatePlan } = useUserPlanStore();
+    const [membresias, setMembresias] = useState({
+      data: [],
+      status: false
+    })
+
+
+
 
   const handleSelectPlan = (plan: string): void => {
     let number = 1;
@@ -115,6 +130,51 @@ const SelectMembership = ({ dataPlans }: Props) => {
 
 
 
+    const llamadoMembresias = async() =>{
+      console.log("Llamado")
+      const sdk = new ThirdwebSDK(PolygonAmoyTestnet);
+      const contract = await sdk.getContract(
+        "0x3D7593DAD82286c3e4CD56925f45F58278BB477c", 
+        abi,
+      );
+      const memberships = await contract.call(
+        "memberships", 
+        [0]
+      );
+        console.log(memberships)
+        let membresiaTemporal:any = []
+        try {
+          for (let i = 0; i < 10; i++) {
+            const memberships = await contract.call(
+              "memberships", 
+              [i]
+            );
+            console.log(memberships)
+            console.log(i)
+           console.log(parseInt(memberships.membershipAmount._hex,16))
+            membresiaTemporal.push(
+              {
+                plan: memberships.membershipTitle,
+                price: ethers.utils.formatEther(memberships.membershipAmount._hex),
+                profitReferralsMembership: 3,
+                profitReferralsEarnings: 3,
+            }
+            )
+          }
+        
+        } catch (error) {
+         console.log("Error")
+        }
+        console.log(membresiaTemporal)
+        setMembresias({
+          data: membresiaTemporal,
+          status: true
+        })
+      }
+      useEffect(() => {
+        llamadoMembresias()
+      }, [])
+
 
 
 
@@ -145,7 +205,9 @@ const SelectMembership = ({ dataPlans }: Props) => {
       </div>
 
       <div className="container-members">
-        {dataPlans.map((plan) => (
+      {membresias.status ?
+      <>
+      {membresias.data.slice(1).map((plan) => (
           <div className="container-plan" key={plan.plan}>
             <div className="container-left">
               <h1 className="plan-title">{plan.plan}</h1>
@@ -177,6 +239,7 @@ const SelectMembership = ({ dataPlans }: Props) => {
             </div>
           </div>
         ))}
+        </>: <>Cargando membresias...</>}
         <ModalComponent
           isOpen={isModalOpen}
           setIsOpen={setIsModalOpen}

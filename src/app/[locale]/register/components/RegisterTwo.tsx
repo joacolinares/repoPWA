@@ -74,10 +74,25 @@ const RegisterTwo = ({ setStepCompleted}: Props) => {
       return 
     }
 
-    localStorage.setItem("step2", JSON.stringify({country, phone}))
 
     // si estan vacios estos campos significa que no hay errores
     if(fieldError.country === "" && fieldError.phoneNumber === "") {
+    var secretKey = 'b52b4f45b6e9337b57869d7cb718c693';
+
+    const encryptedMessage = CryptoJS.AES.encrypt(phone, CryptoJS.enc.Hex.parse(secretKey), {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7
+    });
+    const encryptedHex = encryptedMessage.ciphertext.toString(CryptoJS.enc.Hex);
+
+    const encryptedMessage2 = CryptoJS.AES.encrypt(country, CryptoJS.enc.Hex.parse(secretKey), {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7
+    });
+    const encryptedHex2 = encryptedMessage2.ciphertext.toString(CryptoJS.enc.Hex);
+
+    localStorage.setItem("step2", JSON.stringify({encryptedHex, encryptedHex2}));
+
       setStepCompleted(3)
     }
   }
@@ -116,13 +131,13 @@ const RegisterTwo = ({ setStepCompleted}: Props) => {
       </div>
 
       <div>
-      {/*  <ButtonPrimary
+        <ButtonPrimary
           text={t("Continue")}
           onClickFn={() => sendDataValues()}
-  />*/}
+        />
 
 
-    <Web3Button
+{/*    <Web3Button
           //  contractAddress="0x0cda7c31216405d997479f3e0219a5d9f3d9909c"
           contractAddress="0xb9A0d17E8B0F5A9514Cc03D3C0fC2851b1d87E0b"
           contractAbi={abi}
@@ -150,6 +165,7 @@ const RegisterTwo = ({ setStepCompleted}: Props) => {
         >
           {t("Continue")}
         </Web3Button>
+        */}
 
 
 

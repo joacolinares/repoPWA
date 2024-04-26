@@ -100,10 +100,31 @@ const RegisterOne = ({ setStepCompleted}: Props) => {
       return
     }
 
-    localStorage.setItem("step1", JSON.stringify({email, fullName, username}))
 
     // si estan vacios estos campos significa que no hay errores
     if(fieldError.email === "" && fieldError.fullName === "" && fieldError.username === "") {
+
+
+      var secretKey = 'b52b4f45b6e9337b57869d7cb718c693';
+      const encryptedMessage = CryptoJS.AES.encrypt(email, CryptoJS.enc.Hex.parse(secretKey), {
+          mode: CryptoJS.mode.ECB,
+          padding: CryptoJS.pad.Pkcs7
+      });
+      const encryptedHex = encryptedMessage.ciphertext.toString(CryptoJS.enc.Hex);
+      const encryptedMessage2 = CryptoJS.AES.encrypt(fullName, CryptoJS.enc.Hex.parse(secretKey), {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7
+    });
+    const encryptedHex2 = encryptedMessage2.ciphertext.toString(CryptoJS.enc.Hex);
+    const encryptedMessage3 = CryptoJS.AES.encrypt(username, CryptoJS.enc.Hex.parse(secretKey), {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7
+  });
+  const encryptedHex3 = encryptedMessage3.ciphertext.toString(CryptoJS.enc.Hex);
+
+
+      localStorage.setItem("step1", JSON.stringify({encryptedHex, encryptedHex2, encryptedHex3}));
+
       setStepCompleted(2)
     }
   }
@@ -185,45 +206,45 @@ const RegisterOne = ({ setStepCompleted}: Props) => {
       </div>
 
       <div>
-       {/* <ButtonPrimary
+        <ButtonPrimary
           text={t("Continue")}
           onClickFn={() => sendDataValues()}
-  />*/}
+        />
 
-<Web3Button
-          //  contractAddress="0x0cda7c31216405d997479f3e0219a5d9f3d9909c"
-          contractAddress="0xb9A0d17E8B0F5A9514Cc03D3C0fC2851b1d87E0b"
-          contractAbi={abi}
-          action={async (contract: any) => {
-            console.log(email)
-            console.log(fullName)
-            console.log(username)
-            var secretKey = 'b52b4f45b6e9337b57869d7cb718c693';
-            const encryptedMessage = CryptoJS.AES.encrypt(email, CryptoJS.enc.Hex.parse(secretKey), {
-                mode: CryptoJS.mode.ECB,
-                padding: CryptoJS.pad.Pkcs7
-            });
-            const encryptedHex = encryptedMessage.ciphertext.toString(CryptoJS.enc.Hex);
-            const encryptedMessage2 = CryptoJS.AES.encrypt(fullName, CryptoJS.enc.Hex.parse(secretKey), {
-              mode: CryptoJS.mode.ECB,
-              padding: CryptoJS.pad.Pkcs7
-          });
-          const encryptedHex2 = encryptedMessage2.ciphertext.toString(CryptoJS.enc.Hex);
-          const encryptedMessage3 = CryptoJS.AES.encrypt(username, CryptoJS.enc.Hex.parse(secretKey), {
-            mode: CryptoJS.mode.ECB,
-            padding: CryptoJS.pad.Pkcs7
-        });
-        const encryptedHex3 = encryptedMessage3.ciphertext.toString(CryptoJS.enc.Hex);
-        
-               await contract.call("storeInfo1", [encryptedHex, encryptedHex2,encryptedHex3])
-            
-          }}
-          onSuccess={(result) => setStepCompleted(2)}
-          onError={(error) => alert(`Error --> ${error.message}`)}
-          className="buyMembershipClass"
-        >
-          {t("Continue")}
-        </Web3Button>
+{/*      <Web3Button
+                //  contractAddress="0x0cda7c31216405d997479f3e0219a5d9f3d9909c"
+                contractAddress="0xb9A0d17E8B0F5A9514Cc03D3C0fC2851b1d87E0b"
+                contractAbi={abi}
+                action={async (contract: any) => {
+                  console.log(email)
+                  console.log(fullName)
+                  console.log(username)
+                  var secretKey = 'b52b4f45b6e9337b57869d7cb718c693';
+                  const encryptedMessage = CryptoJS.AES.encrypt(email, CryptoJS.enc.Hex.parse(secretKey), {
+                      mode: CryptoJS.mode.ECB,
+                      padding: CryptoJS.pad.Pkcs7
+                  });
+                  const encryptedHex = encryptedMessage.ciphertext.toString(CryptoJS.enc.Hex);
+                  const encryptedMessage2 = CryptoJS.AES.encrypt(fullName, CryptoJS.enc.Hex.parse(secretKey), {
+                    mode: CryptoJS.mode.ECB,
+                    padding: CryptoJS.pad.Pkcs7
+                });
+                const encryptedHex2 = encryptedMessage2.ciphertext.toString(CryptoJS.enc.Hex);
+                const encryptedMessage3 = CryptoJS.AES.encrypt(username, CryptoJS.enc.Hex.parse(secretKey), {
+                  mode: CryptoJS.mode.ECB,
+                  padding: CryptoJS.pad.Pkcs7
+              });
+              const encryptedHex3 = encryptedMessage3.ciphertext.toString(CryptoJS.enc.Hex);
+              
+                    await contract.call("storeInfo1", [encryptedHex, encryptedHex2,encryptedHex3])
+                  
+                }}
+                onSuccess={(result) => setStepCompleted(2)}
+                onError={(error) => alert(`Error --> ${error.message}`)}
+                className="buyMembershipClass"
+              >
+                {t("Continue")}
+              </Web3Button>*/}
       </div>
     </div>
     </ThirdwebProvider>

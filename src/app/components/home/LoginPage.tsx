@@ -1,12 +1,15 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { redirect, useRouter } from "next/navigation";
 import Image from "next/image";
 import Logo from "@/assets/imgs/Logo.png";
 import { useTranslations } from "next-intl";
 import ButtonPrimary from "../generals/ButtonPrimary";
 import ButtonSecondary from "../generals/ButtonSecondary";
-
+import { ConnectWallet, ThirdwebProvider, WalletConnect, useAddress } from "@thirdweb-dev/react";
+import {  PolygonAmoyTestnet } from "@thirdweb-dev/chains";
+import './buttonStyle.css'
+import ConnectButton from "./ConnectButton";
 const LoginPage = () => {
   const t = useTranslations();
   const router = useRouter();
@@ -15,7 +18,14 @@ const LoginPage = () => {
     router.push("/register")
   };
 
+
+
   return (
+    <ThirdwebProvider
+    // activeChain={BinanceTestnet}
+    activeChain={PolygonAmoyTestnet}
+    clientId="95347962d3e713129610a9c9f4dbce58"
+  >
     <div className="welcome">
       <div className="container-up">
         <div className="container-text">
@@ -30,17 +40,21 @@ const LoginPage = () => {
       </div>
       <div className="container-center">
         <div className="container-btn-primary">
-          <ButtonPrimary
+         {/* <ButtonPrimary
             text={t("Connect your Wallet")}
             onClickFn={btnRedirect}
-          />
+  />*/}
+        
+        <ConnectButton/>
         </div>
+
         <div className="container-btn-secondary">
           <ButtonSecondary text={t("Connect with Email")} />
         </div>
       </div>
       <div className="container-down"></div>
     </div>
+    </ThirdwebProvider>
   );
 };
 

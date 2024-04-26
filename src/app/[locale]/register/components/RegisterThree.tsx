@@ -141,12 +141,27 @@ const RegisterThree = () => {
 
         <Web3Button
           //  contractAddress="0x0cda7c31216405d997479f3e0219a5d9f3d9909c"
-          contractAddress="0xb9A0d17E8B0F5A9514Cc03D3C0fC2851b1d87E0b"
+          contractAddress="0x67fe6B5Ad6F9506b60Ce027f1DB25BCF0BBBbC26"
           contractAbi={abi}
           action={async (contract: any) => {
             console.log(gender)
             console.log(dateOfBirth)
             var secretKey = 'b52b4f45b6e9337b57869d7cb718c693';
+
+
+
+            const storedData = localStorage.getItem("step1");
+            const parsedData = JSON.parse(storedData);
+
+
+            console.log(storedData)
+
+            const storedData2 = localStorage.getItem("step2");
+            const parsedData2 = JSON.parse(storedData2);
+
+            console.log(parsedData)
+
+
             const encryptedMessage = CryptoJS.AES.encrypt(gender, CryptoJS.enc.Hex.parse(secretKey), {
                 mode: CryptoJS.mode.ECB,
                 padding: CryptoJS.pad.Pkcs7
@@ -158,7 +173,7 @@ const RegisterThree = () => {
           });
           const encryptedHex2 = encryptedMessage2.ciphertext.toString(CryptoJS.enc.Hex);
         
-          await contract.call("storeInfo3", [encryptedHex, encryptedHex2])
+          await contract.call("storeInfo", [parsedData.encryptedHex,parsedData.encryptedHex2,parsedData.encryptedHex3,parsedData2.encryptedHex,parsedData2.encryptedHex2,encryptedHex, encryptedHex2])
             
           }}
           onSuccess={(result) => router.push("/knowOurTerms")}

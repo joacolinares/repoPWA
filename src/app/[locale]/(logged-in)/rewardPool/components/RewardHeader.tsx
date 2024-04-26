@@ -7,7 +7,8 @@ const RewardHeader = () => {
   const t = useTranslations();
   const copyReferralLink = () => {
     // cambiar el userStore.email por el link de referido
-    navigator.clipboard.writeText("link de referido");
+    console.log("holaa")
+    navigator.clipboard.writeText("hola");
   };
 
   return (
@@ -15,7 +16,7 @@ const RewardHeader = () => {
       <h1 className="font-bold text-[28px] mb-6">{t("Grow together with your friends")!}</h1>
       <div className="container-btn-reward">
         <ButtonPrimary
-          text={t("Copy your Referral Link")!}
+          text={t("Copy your Referral Linkd")!}
           onClickFn={copyReferralLink}
         />
       </div>

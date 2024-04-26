@@ -15,49 +15,6 @@
 				"internalType": "string",
 				"name": "_encryptedUsername",
 				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_encryptedPhoneNumber",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_encryptedCountry",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_encryptedGender",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_encryptedDateOfBirth",
-				"type": "string"
-			}
-		],
-		"name": "storeInfo",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_encryptedEmail",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_encryptedName",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_encryptedUsername",
-				"type": "string"
 			}
 		],
 		"name": "storeInfo1",
