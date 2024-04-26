@@ -13,7 +13,7 @@ const MembershipPage = async () => {
   
   return (
     <>
-      <SelectMembership dataPlans={plans} />
+      <SelectMembership  />
     </>
   )
 }

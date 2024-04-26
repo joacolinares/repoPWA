@@ -7,12 +7,19 @@ async function getDataPlans() {
   return dataPlans
 }
 
+interface PlansMembership {
+  plan: string;
+  price: string;
+  profitReferralsMembership: string;
+  profitReferralsEarnings: string;
+}
+
 const SelectMember = async () => {
 
   const plans = await getDataPlans()
 
   return (
-    <SelectMembership dataPlans={plans}/>
+    <SelectMembership />
   )
 }
 

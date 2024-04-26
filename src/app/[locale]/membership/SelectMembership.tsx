@@ -3,7 +3,6 @@ import Image from "next/image";
 import IconLogo from "@/assets/imgs/LogoTipoPeq.png";
 import { useTranslations } from "next-intl";
 import ButtonSecondary from "@/app/components/generals/ButtonSecondary";
-import { PlansMembership } from "@/app/[locale]/membership/moskData";
 import CheckIcon from "@/assets/icons/CheckIcon";
 import CloseIcon from "@/assets/icons/CloseIcon";
 import { useEffect, useState } from "react";
@@ -24,6 +23,13 @@ interface Props {
   dataPlans: PlansMembership[];
 }
 
+interface PlansMembership {
+  plan: string;
+  price: string;
+  profitReferralsMembership: number;
+  profitReferralsEarnings: number;
+  // Agrega otras propiedades según sea necesario
+}
 
 
 
@@ -31,8 +37,7 @@ interface Props {
 
 
 
-
-const SelectMembership = ({ dataPlans }: Props) => {
+const SelectMembership = () => {
   const t = useTranslations();
   const [selectedPlan, setSelectedPlan] = useState<PlansMembership | null>(
     null
@@ -45,7 +50,7 @@ const SelectMembership = ({ dataPlans }: Props) => {
   const pathname = usePathname();
   const [selectedPlanNumber, setSelectedPlanNumber] = useState(0)
   const { updatePlan } = useUserPlanStore();
-    const [membresias, setMembresias] = useState({
+    const [membresias, setMembresias] = useState<{ data: PlansMembership[]; status: boolean }>({
       data: [],
       status: false
     })
@@ -56,13 +61,13 @@ const SelectMembership = ({ dataPlans }: Props) => {
   const handleSelectPlan = (plan: string): void => {
     let number = 1;
     if (plan) {
-      const findPlan = dataPlans.find((p) => p.plan === plan);
+      const findPlan = 1// = dataPlans.find((p) => p.plan === plan);
       if (findPlan) {
-        setSelectedPlan(findPlan);
-        updatePlan(findPlan);
-        if (plan === "Essential") {
+        //setSelectedPlan(0);
+      //  updatePlan(findPlan);
+        if (plan === "Silver") {
           number = 2;
-        } else if (plan === "Premium") {
+        } else if (plan === "Gold") {
           number = 3;
         }
       }
@@ -87,7 +92,7 @@ const SelectMembership = ({ dataPlans }: Props) => {
   };
 
   const confirmMembership2 = () => {
-    if (selectedPlan) {
+   // if (selectedPlan) {
       setIsModalProcessingOpen(true);
       setIsProcessing(true);
 
@@ -98,7 +103,7 @@ const SelectMembership = ({ dataPlans }: Props) => {
       setTimeout(() => {
         router.push("/dashboard");
       }, 3000);
-    }
+   // }
   };
 
   const upgradePlan = () => {

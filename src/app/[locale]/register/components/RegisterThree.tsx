@@ -151,13 +151,10 @@ const RegisterThree = () => {
 
 
             const storedData = localStorage.getItem("step1");
-            const parsedData = JSON.parse(storedData);
-
-
-            console.log(storedData)
-
+            const parsedData = storedData ? JSON.parse(storedData) : { /* valores por defecto */ };
+            
             const storedData2 = localStorage.getItem("step2");
-            const parsedData2 = JSON.parse(storedData2);
+            const parsedData2 = storedData2 ? JSON.parse(storedData2) : { /* valores por defecto */ };
 
             console.log(parsedData)
 
