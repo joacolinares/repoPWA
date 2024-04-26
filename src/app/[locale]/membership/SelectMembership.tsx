@@ -58,21 +58,28 @@ const SelectMembership = () => {
 
 
 
-  const handleSelectPlan = (plan: string): void => {
-    let number = 1;
-    if (plan) {
-      const findPlan = 1// = dataPlans.find((p) => p.plan === plan);
-      if (findPlan) {
-        //setSelectedPlan(0);
-      //  updatePlan(findPlan);
-        if (plan === "Silver") {
-          number = 2;
-        } else if (plan === "Gold") {
-          number = 3;
-        }
-      }
-    }
-    setSelectedPlanNumber(number);
+  const handleSelectPlan = (plan: string, index: number): void => {
+    index = index + 1
+    console.log(index)
+     if(index == 1){
+       setSelectedPlanNumber(1);
+      }else if(index == 2){
+        setSelectedPlanNumber(2);
+     }else if(index == 3){
+      setSelectedPlanNumber(3);
+   }else if(index == 4){
+    setSelectedPlanNumber(4);
+  }else if(index == 5){
+    setSelectedPlanNumber(5);
+ }
+  console.log(plan)
+ const findPlan = membresias.data.find((p) => p.price === plan);
+ console.log(findPlan)
+ if (findPlan) {
+   setSelectedPlan(findPlan);
+   //updatePlan(findPlan);
+ }
+
   };
 
   const confirmMembership = () => {
@@ -212,7 +219,7 @@ const SelectMembership = () => {
       <div className="container-members">
       {membresias.status ?
       <>
-      {membresias.data.slice(1).map((plan) => (
+      {membresias.data.slice(1).map((plan,index) => (
           <div className="container-plan" key={plan.plan}>
             <div className="container-left">
               <h1 className="plan-title">{plan.plan}</h1>
@@ -221,7 +228,7 @@ const SelectMembership = () => {
                   text={t("See more")}
                   classname="--btnMember"
                   onClickFn={() => {
-                    handleSelectPlan(plan.plan);
+                    handleSelectPlan(plan.price,index);
                     setIsModalOpen(true);
                   }}
                 />
@@ -236,10 +243,10 @@ const SelectMembership = () => {
             <div className="container-right">
               <p className="plan-price">{plan.price}</p>
               <div
-                onClick={() => handleSelectPlan(plan.plan)}
+                onClick={() => handleSelectPlan(plan.price,index)}
                 className="container-check"
               >
-                {selectedPlan?.plan === plan.plan && <CheckIcon />}
+                {selectedPlan?.price === plan.price && <CheckIcon />}
               </div>
             </div>
           </div>
@@ -326,7 +333,7 @@ const SelectMembership = () => {
               const params = new URLSearchParams(queryString);
               const referralWallet = params.get("refferalWallet");
               console.log(referralWallet)
-              console.log(selectedPlan)
+              console.log(selectedPlanNumber)
               if (referralWallet) {
                 await contract.call("buyMembership", [selectedPlanNumber, referralWallet])
               }else{
