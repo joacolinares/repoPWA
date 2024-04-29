@@ -13,7 +13,7 @@ import { useUserPlanStore } from "@/store/user-plan";
 import Navbar from "@/app/components/generals/Navbar";
 import ProcessingIcon from "@/assets/imgs/processingGifModal.gif";
 import CheckDone from "@/assets/icons/checkDone.svg";
-import {  PolygonAmoyTestnet } from "@thirdweb-dev/chains";
+import {  BinanceTestnet } from "@thirdweb-dev/chains";
 import { ThirdwebProvider, ThirdwebSDK, Web3Button } from "@thirdweb-dev/react";
 import abi from './abis/abi.json'
 import abiToken from './abis/abiToken.json'
@@ -54,7 +54,7 @@ const SelectMembership = () => {
       data: [],
       status: false
     })
-
+    const [actualCode, setActualCode] = useState<string | null>(null);
 
 
 
@@ -144,9 +144,9 @@ const SelectMembership = () => {
 
     const llamadoMembresias = async() =>{
       console.log("Llamado")
-      const sdk = new ThirdwebSDK(PolygonAmoyTestnet);
+      const sdk = new ThirdwebSDK(BinanceTestnet);
       const contract = await sdk.getContract(
-        "0x3D7593DAD82286c3e4CD56925f45F58278BB477c", 
+        "0xbd42850F0Cca688e6D47FAA22Fd2f38ed1966ba7", 
         abi,
       );
       const memberships = await contract.call(
@@ -185,6 +185,23 @@ const SelectMembership = () => {
       }
       useEffect(() => {
         llamadoMembresias()
+
+        const currentUrl = window.location.href;
+        const queryStringIndex = currentUrl.indexOf("?");
+        if (queryStringIndex !== -1) {
+          const queryString = currentUrl.slice(queryStringIndex + 1);
+          const params = new URLSearchParams(queryString);
+          const referralWallet = params.get("refferalWallet");
+          console.log(referralWallet)
+          if (referralWallet) {
+            setActualCode(referralWallet);
+          }else{
+            setActualCode(referralWallet);
+          }
+        } else{
+          setActualCode("0x0000000000000000000000000000000000000123");
+        }
+
       }, [])
 
 
@@ -195,7 +212,7 @@ const SelectMembership = () => {
   return (
     <ThirdwebProvider
       // activeChain={BinanceTestnet}
-      activeChain={PolygonAmoyTestnet}
+      activeChain={BinanceTestnet}
       clientId="95347962d3e713129610a9c9f4dbce58"
     >
     <div className={`container-Membership`}>
@@ -315,13 +332,13 @@ const SelectMembership = () => {
         
         */
         }
-
+  <center><p>Wallet referido actual: {actualCode}</p></center>
 {
           aprobado
           ?
           <Web3Button
           //  contractAddress="0x0cda7c31216405d997479f3e0219a5d9f3d9909c"
-          contractAddress="0x3D7593DAD82286c3e4CD56925f45F58278BB477c"
+          contractAddress="0xbd42850F0Cca688e6D47FAA22Fd2f38ed1966ba7"
           contractAbi={abi}
           action={async (contract) => {
 
@@ -350,11 +367,11 @@ const SelectMembership = () => {
           :
           <Web3Button
           //  contractAddress="0x0cda7c31216405d997479f3e0219a5d9f3d9909c"
-          contractAddress="0xDdF63539728e91ed3fB8E67ECEaDD19eE7D07D10"
+          contractAddress="0xb478D406d432BCaD1c687aC46a61272B15fe19A5"
           contractAbi={abiToken}
           action={async (contract) => {
             
-            await contract.call("approve", ["0x3D7593DAD82286c3e4CD56925f45F58278BB477c", ethers.constants.MaxUint256])
+            await contract.call("approve", ["0xbd42850F0Cca688e6D47FAA22Fd2f38ed1966ba7", ethers.constants.MaxUint256])
             confirmMembership()
             setAprobado(true)
           }}

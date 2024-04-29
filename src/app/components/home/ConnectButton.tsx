@@ -8,7 +8,7 @@ import {
 import './buttonStyle.css'
 import { ConnectWallet, ThirdwebSDK, useAddress } from "@thirdweb-dev/react";
 import {  useRouter } from "next/navigation";
-import {  PolygonAmoyTestnet } from "@thirdweb-dev/chains";
+import {  BinanceTestnet } from "@thirdweb-dev/chains";
 import abi from './abis/abi.json'
 const ConnectButton = () => {
     
@@ -18,9 +18,9 @@ const ConnectButton = () => {
 
     const llamado = async() =>{
         console.log("Llamado")
-        const sdk = new ThirdwebSDK(PolygonAmoyTestnet);
+        const sdk = new ThirdwebSDK(BinanceTestnet);
         const contract = await sdk.getContract(
-          "0xb9A0d17E8B0F5A9514Cc03D3C0fC2851b1d87E0b", 
+          "0xCe64023d7847f5b77d91520514106F52f10C9524", 
           abi,
         );
 
@@ -33,7 +33,21 @@ const ConnectButton = () => {
 
 
           if(personalDataMap.encryptedEmail == ''){
-            router.push("/register");
+            const currentUrl = window.location.href;
+            const queryStringIndex = currentUrl.indexOf("?");
+            if (queryStringIndex !== -1) {
+              const queryString = currentUrl.slice(queryStringIndex + 1);
+              const params = new URLSearchParams(queryString);
+              const referralWallet = params.get("refferalWallet");
+              console.log(referralWallet)
+              if (referralWallet) {
+                router.push(`/register?refferalWallet=${referralWallet}`);
+              }else{
+                router.push(`/register?refferalWallet=0x0000000000000000000000000000000000000123`);
+              }
+            } else{
+              router.push(`/register?refferalWallet=0x0000000000000000000000000000000000000123`);
+            }
           }else{
             router.push("/dashboard");
           }

@@ -6,13 +6,13 @@ import SelectMember from "./selectMember/page";
 import MyMembersTeam from "./components/MyMembersTeam";
 import Header from "@/app/components/generals/Header";
 import { ThirdwebProvider } from "@thirdweb-dev/react";
-import {  PolygonAmoyTestnet } from "@thirdweb-dev/chains";
+import {  BinanceTestnet } from "@thirdweb-dev/chains";
 const Members = () => {
   const pathname = usePathname();
   return (
     <ThirdwebProvider
     // activeChain={BinanceTestnet}
-    activeChain={PolygonAmoyTestnet}
+    activeChain={BinanceTestnet}
     clientId="95347962d3e713129610a9c9f4dbce58"
   >
     <div>

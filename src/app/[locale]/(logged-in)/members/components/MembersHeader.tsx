@@ -4,10 +4,9 @@ import ButtonPrimary from "@/app/components/generals/ButtonPrimary";
 import { useTranslations } from "next-intl";
 import { useRouter, redirect } from 'next/navigation';
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
-import {  PolygonAmoyTestnet } from "@thirdweb-dev/chains";
+import {  BinanceTestnet } from "@thirdweb-dev/chains";
 import abi from './abis/abi.json'
-import { ThirdwebProvider, useAddress } from "@thirdweb-dev/react";
-
+import { ThirdwebProvider, Web3Button, useAddress } from "@thirdweb-dev/react";
 
 
 const MembersHeader = () => {
@@ -27,9 +26,9 @@ const MembersHeader = () => {
  
 
   const loadInfo = async() =>{
-    const sdk = new ThirdwebSDK(PolygonAmoyTestnet);
+    const sdk = new ThirdwebSDK(BinanceTestnet);
     const contract = await sdk.getContract(
-      "0x3D7593DAD82286c3e4CD56925f45F58278BB477c", 
+      "0xbd42850F0Cca688e6D47FAA22Fd2f38ed1966ba7", 
       abi,
     );
 
@@ -67,7 +66,11 @@ const MembersHeader = () => {
 
 
   return (
-
+    <ThirdwebProvider
+      // activeChain={BinanceTestnet}
+      activeChain={BinanceTestnet}
+      clientId="95347962d3e713129610a9c9f4dbce58"
+    >
     <div className="members-header px-6">
       <div className="container p-2 rounded-[16px] border-solid border-[1.2px] border-[#7A2FF4]">
         <div className="container-totalStaked rounded-[10px] bg-[#7A2FF4] p-6 text-white text-center">
@@ -86,9 +89,23 @@ const MembersHeader = () => {
         </div>
       </div>
       <div className="mt-6">
-          <ButtonPrimary text={t("Withdraw Rewards")} onClickFn={redirectToWithdrawRewards}/>
+         {/* <ButtonPrimary text={t("Withdraw Rewards")} onClickFn={redirectToWithdrawRewards}/>*/}
+          <Web3Button
+          //  contractAddress="0x0cda7c31216405d997479f3e0219a5d9f3d9909c"
+          contractAddress="0xbd42850F0Cca688e6D47FAA22Fd2f38ed1966ba7"
+          contractAbi={abi}
+          action={async (contract) => {
+                await contract.call("getRewards", [])
+          }}
+          onSuccess={() => alert("Succes")}
+          onError={() => alert(`Error `)}
+          className="buyMembershipClass"
+        >
+          {t("Withdraw Rewards")}
+        </Web3Button>
         </div>
     </div>
+    </ThirdwebProvider>
   );
 };
 

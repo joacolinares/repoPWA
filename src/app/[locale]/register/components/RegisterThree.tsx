@@ -8,7 +8,7 @@ import { ThirdwebProvider, Web3Button } from "@thirdweb-dev/react";
 var CryptoJS = require( 'crypto-js' );
 import abi from './abis/abi.json'
 import './buttonStyle.css'
-import {  PolygonAmoyTestnet } from "@thirdweb-dev/chains";
+import {  BinanceTestnet } from "@thirdweb-dev/chains";
 
 
 const RegisterThree = () => {
@@ -90,14 +90,31 @@ const RegisterThree = () => {
 
     // si estan vacios estos campos significa que no hay errores
     if(fieldError.gender === "" && fieldError.dateOfBirth === "") {
-      router.push("/knowOurTerms")
+     
+          const currentUrl = window.location.href;
+            const queryStringIndex = currentUrl.indexOf("?");
+            if (queryStringIndex !== -1) {
+              const queryString = currentUrl.slice(queryStringIndex + 1);
+              const params = new URLSearchParams(queryString);
+              const referralWallet = params.get("refferalWallet");
+              console.log(referralWallet)
+              if (referralWallet) {
+                router.push(`/knowOurTerms?refferalWallet=${referralWallet}`);
+              }else{
+                router.push(`/knowOurTerms?refferalWallet=0x0000000000000000000000000000000000000123`);
+              }
+            } else{
+              router.push("/knowOurTerms?refferalWallet=0x0000000000000000000000000000000000000123")
+            }
+     
+     
     }
   }
 
   return (
     <ThirdwebProvider
     // activeChain={BinanceTestnet}
-    activeChain={PolygonAmoyTestnet}
+    activeChain={BinanceTestnet}
     clientId="95347962d3e713129610a9c9f4dbce58"
   >
     <div className="registerThree">
@@ -141,7 +158,7 @@ const RegisterThree = () => {
 
         <Web3Button
           //  contractAddress="0x0cda7c31216405d997479f3e0219a5d9f3d9909c"
-          contractAddress="0x67fe6B5Ad6F9506b60Ce027f1DB25BCF0BBBbC26"
+          contractAddress="0xCe64023d7847f5b77d91520514106F52f10C9524"
           contractAbi={abi}
           action={async (contract: any) => {
             console.log(gender)
@@ -173,7 +190,26 @@ const RegisterThree = () => {
           await contract.call("storeInfo", [parsedData.encryptedHex,parsedData.encryptedHex2,parsedData.encryptedHex3,parsedData2.encryptedHex,parsedData2.encryptedHex2,encryptedHex, encryptedHex2])
             
           }}
-          onSuccess={(result) => router.push("/knowOurTerms")}
+          onSuccess={(result) => {
+
+            const currentUrl = window.location.href;
+            const queryStringIndex = currentUrl.indexOf("?");
+            if (queryStringIndex !== -1) {
+              const queryString = currentUrl.slice(queryStringIndex + 1);
+              const params = new URLSearchParams(queryString);
+              const referralWallet = params.get("refferalWallet");
+              console.log(referralWallet)
+              if (referralWallet) {
+                router.push(`/knowOurTerms?refferalWallet=${referralWallet}`);
+              }else{
+                router.push(`/knowOurTerms?refferalWallet=0x0000000000000000000000000000000000000123`);
+              }
+            } else{
+              router.push("/knowOurTerms?refferalWallet=0x0000000000000000000000000000000000000123")
+            }
+
+
+          }}
           onError={(error) => alert(`Error --> ${error.message}`)}
           className="buyMembershipClass"
         >

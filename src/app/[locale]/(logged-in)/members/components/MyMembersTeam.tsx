@@ -8,7 +8,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useUserLevelStore } from "@/store/user-level";
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
-import {  PolygonAmoyTestnet } from "@thirdweb-dev/chains";
+import {  BinanceTestnet } from "@thirdweb-dev/chains";
 import { useAddress } from "@thirdweb-dev/react";
 import abi from './abis/abi.json'
 
@@ -40,9 +40,9 @@ const MyMembersTeam = () => {
   const address = useAddress()
 
   const loadInfo = async() =>{
-    const sdk = new ThirdwebSDK(PolygonAmoyTestnet);
+    const sdk = new ThirdwebSDK(BinanceTestnet);
     const contract = await sdk.getContract(
-      "0x3D7593DAD82286c3e4CD56925f45F58278BB477c", 
+      "0xbd42850F0Cca688e6D47FAA22Fd2f38ed1966ba7", 
       abi,
     );
     if(address != undefined){

@@ -1,7 +1,7 @@
 "use client";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import IconLogo from "@/assets/imgs/LogoTipoPeq.png";
 import ButtonSecondary from "@/app/components/generals/ButtonSecondary";
 import ButtonPrimary from "@/app/components/generals/ButtonPrimary";
@@ -9,7 +9,27 @@ import Link from "next/link";
 
 const KnowOurTerms = () => {
   const t = useTranslations();
+  const [refferalCode, setRefferalCode] = useState<string | null>(null);
+  useEffect(() => {
+    const currentUrl = window.location.href;
+    const queryStringIndex = currentUrl.indexOf("?");
+    if (queryStringIndex !== -1) {
+      const queryString = currentUrl.slice(queryStringIndex + 1);
+      const params = new URLSearchParams(queryString);
+      const referralWallet = params.get("refferalWallet");
+      console.log(referralWallet)
+      if (referralWallet) {
+        setRefferalCode(referralWallet)
+      }else{
+        setRefferalCode(referralWallet)
+      }
+    } else{
+      setRefferalCode("0x0000000000000000000000000000000000000123")
+    }
+  }, [])
   
+
+
   return (
     <div className="container-knowOurTerms">
       <div className="header">
@@ -41,7 +61,7 @@ const KnowOurTerms = () => {
         <Link href={"/register"} className="container-btnClose">
           <ButtonSecondary text={t("Close")}/>
         </Link>
-        <Link href={"/connectYourWallet"} className="container-btnAgree">
+        <Link href={`/membership?refferalWallet=${refferalCode}`} className="container-btnAgree">
           <ButtonPrimary text={t("I Agree")}/>
         </Link>
       </div>

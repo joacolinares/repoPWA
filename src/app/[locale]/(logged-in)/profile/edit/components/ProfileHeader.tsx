@@ -15,7 +15,7 @@ const ProfileHeader = () => {
     const baseURL = window.location.origin;
 
     // Construir la URL completa con el segmento adicional
-    const referralLink = `${baseURL}/membership?refferalWallet=${wallet}`;
+    const referralLink = `${baseURL}?refferalWallet=${wallet}`;
 
     // Copiar el enlace al portapapeles
     navigator.clipboard.writeText(referralLink);

@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
 import "../styles/index.scss";
 import { ThirdwebProvider } from "@thirdweb-dev/react";
-import {  PolygonAmoyTestnet } from "@thirdweb-dev/chains";
+import {  Binance } from "@thirdweb-dev/chains";
 const montserrat = Montserrat({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
 
 export const metadata: Metadata = {

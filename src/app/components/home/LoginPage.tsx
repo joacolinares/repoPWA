@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import ButtonPrimary from "../generals/ButtonPrimary";
 import ButtonSecondary from "../generals/ButtonSecondary";
 import { ConnectWallet, ThirdwebProvider, WalletConnect, useAddress } from "@thirdweb-dev/react";
-import {  PolygonAmoyTestnet } from "@thirdweb-dev/chains";
+import {  BinanceTestnet } from "@thirdweb-dev/chains";
 import './buttonStyle.css'
 import ConnectButton from "./ConnectButton";
 const LoginPage = () => {
@@ -23,7 +23,7 @@ const LoginPage = () => {
   return (
     <ThirdwebProvider
     // activeChain={BinanceTestnet}
-    activeChain={PolygonAmoyTestnet}
+    activeChain={BinanceTestnet}
     clientId="95347962d3e713129610a9c9f4dbce58"
   >
     <div className="welcome">

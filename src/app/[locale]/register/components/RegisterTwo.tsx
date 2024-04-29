@@ -10,7 +10,7 @@ import { ThirdwebProvider, Web3Button } from "@thirdweb-dev/react";
 var CryptoJS = require( 'crypto-js' );
 import abi from './abis/abi.json'
 import './buttonStyle.css'
-import {  PolygonAmoyTestnet } from "@thirdweb-dev/chains";
+import {  BinanceTestnet } from "@thirdweb-dev/chains";
 
 type Props = {
   setStepCompleted: (value: number) => void;
@@ -100,7 +100,7 @@ const RegisterTwo = ({ setStepCompleted}: Props) => {
   return (
     <ThirdwebProvider
     // activeChain={BinanceTestnet}
-    activeChain={PolygonAmoyTestnet}
+    activeChain={BinanceTestnet}
     clientId="95347962d3e713129610a9c9f4dbce58"
   >
     <div className="registerTwo">
